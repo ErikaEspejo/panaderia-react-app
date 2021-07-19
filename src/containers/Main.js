@@ -2,6 +2,7 @@ import React from 'react';
 import Switch from 'react-switch';
 import Headers from '../components/Headers';
 import { HiBadgeCheck } from 'react-icons/hi';
+import { FaBars } from 'react-icons/fa';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -10,7 +11,10 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
 
   return (
     <main>
-      <div className="block ">
+      <div className="block">
+        <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
+          <FaBars />
+        </div>
         <Switch
           height={16}
           width={30}

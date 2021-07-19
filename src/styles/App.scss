@@ -116,6 +116,7 @@ body {
 
   .block {
     display: flex;
+    align-items: center;
     font-size: 14px;
     color: #545454;
     > span {
@@ -160,6 +161,7 @@ body {
   @media (max-width: $breakpoint-md) {
     .btn-toggle {
       display: flex;
+      margin-right: 15px;
     }
 
     &.rtl {
