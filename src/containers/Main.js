@@ -1,7 +1,5 @@
 import React from 'react';
 import Switch from 'react-switch';
-import Headers from '../components/Headers';
-import { HiBadgeCheck } from 'react-icons/hi';
 import { FaBars } from 'react-icons/fa';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
@@ -27,8 +25,6 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
         />
         <span> {showMenu(collapsed)}</span>
       </div>
-      {/* AQUI VA EL SWITCH PARA LAS DIFERENTES PAGINAS */}
-      <Headers title={'Gestión de Calidad'} icon={<HiBadgeCheck />} />
     </main>
   );
 };

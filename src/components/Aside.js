@@ -8,11 +8,13 @@ import {
   SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar';
+import { Link } from 'react-router-dom';
 import { HiBadgeCheck, HiShoppingCart } from 'react-icons/hi';
 import { FaTruck, FaUserTie, FaChartLine, FaUsersCog } from 'react-icons/fa';
 import { RiCoinsFill } from 'react-icons/ri';
 import { FiLogOut } from 'react-icons/fi';
 import sidebarBg from './assets/bg1.jpg';
+
 import profilePhoto from './assets/profile-photo.png';
 
 const FullInfo = () => {
@@ -83,29 +85,57 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
       <SidebarContent>
         <Menu iconShape="circle">
           <SubMenu icon={<HiBadgeCheck />} title="Gestión de Calidad">
-            <MenuItem>Nuevo Hallazgo</MenuItem>
-            <MenuItem>Historial de Hallazgos</MenuItem>
+            <MenuItem>
+              <Link to="/hallazgo/nuevo">Nuevo Hallazgo</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/hallazgo">Historial de Hallazgos</Link>
+            </MenuItem>
           </SubMenu>
           <SubMenu icon={<FaTruck />} title="Producción">
-            <MenuItem> Proveedores</MenuItem>
-            <MenuItem>Insumos</MenuItem>
-            <MenuItem>Productos</MenuItem>
-            <MenuItem>Producción</MenuItem>
+            <Link to="/proveedores">
+              <MenuItem>
+                <Link to="/proveedores">Proveedores</Link>
+              </MenuItem>
+            </Link>
+            <MenuItem>
+              <Link to="/insumos">Insumos</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/productos">Productos</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/produccion">Producción</Link>
+            </MenuItem>
           </SubMenu>
-          <MenuItem icon={<RiCoinsFill />}>Costos</MenuItem>
+          <MenuItem icon={<RiCoinsFill />}>
+            <Link to="/costos">Costos</Link>
+          </MenuItem>
           <SubMenu icon={<FaUserTie />} title="Personal">
-            <MenuItem> Nuevo Trabajador</MenuItem>
-            <MenuItem>Personal</MenuItem>
+            <MenuItem>
+              <Link to="/personal/nuevo">Nuevo Trabajador</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/personal">Personal</Link>
+            </MenuItem>
           </SubMenu>
-          <MenuItem icon={<HiShoppingCart />}>Ventas</MenuItem>
-          <MenuItem icon={<FaChartLine />}>Reportes</MenuItem>
-          <MenuItem icon={<FaUsersCog />}>Administrar Accesos</MenuItem>
+          <MenuItem icon={<HiShoppingCart />}>
+            <Link to="/ventas">Ventas</Link>
+          </MenuItem>
+          <MenuItem icon={<FaChartLine />}>
+            <Link to="/reportes">Reportes</Link>
+          </MenuItem>
+          <MenuItem icon={<FaUsersCog />}>
+            <Link to="/accesos">Administrar Accesos</Link>
+          </MenuItem>
         </Menu>
       </SidebarContent>
 
       <SidebarFooter>
         <Menu iconShape="circle">
-          <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+          <MenuItem icon={<FiLogOut />}>
+            <Link to="/">Logout</Link>
+          </MenuItem>
         </Menu>
       </SidebarFooter>
     </ProSidebar>
