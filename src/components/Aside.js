@@ -93,11 +93,9 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
             </MenuItem>
           </SubMenu>
           <SubMenu icon={<FaTruck />} title="Producción">
-            <Link to="/proveedores">
-              <MenuItem>
-                <Link to="/proveedores">Proveedores</Link>
-              </MenuItem>
-            </Link>
+            <MenuItem>
+              <Link to="/proveedores">Proveedores</Link>
+            </MenuItem>
             <MenuItem>
               <Link to="/insumos">Insumos</Link>
             </MenuItem>

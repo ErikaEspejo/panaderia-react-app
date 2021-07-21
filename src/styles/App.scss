@@ -40,6 +40,21 @@ body {
     display: none;
   }
 
+  .action-button {
+    width: 80px;
+    padding-block: 5px;
+    margin-block: 2px;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    background-color: #888888;
+    &:hover {
+      cursor: pointer;
+      background-color: green;
+    }
+  }
+
   .sidebar-btn-wrapper {
     display: flex;
     align-items: center;
