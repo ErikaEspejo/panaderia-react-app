@@ -19,11 +19,17 @@ const NuevoHallazgo = () => {
     const { date, findingType, finding, actions, accomplishment } =
       event.target.elements;
 
+    actions.value === '' && (actions.value = ' ');
+
     if (date.value && findingType.value && finding.value) {
+      const dateParsed = new Date(date.value).toLocaleDateString('en-US', {
+        timeZone: 'Europe/Madrid',
+      });
+
       try {
         setError('');
         await API.createFinding({
-          date: date.value,
+          date: dateParsed,
           findingType: findingType.value,
           finding: finding.value,
           actions: actions.value,
@@ -56,7 +62,13 @@ const NuevoHallazgo = () => {
           <div>
             <label htmlFor="">
               Fecha
-              <input type="date" name="date" />
+              <input
+                type="date"
+                name="date"
+                defaultValue={new Date(Date.now())
+                  .toISOString()
+                  .substring(0, 10)}
+              />
             </label>
             <label htmlFor="">
               Tipo de hallazgo
