@@ -42,7 +42,7 @@ const Provider = ({
       </td>
 
       <td className="actions">
-        <Link to={`/accesos`}>
+        <Link to={`/hallazgo/${id}`}>
           <button className="action-button">Modificar</button>
         </Link>
         <button className="action-button">Eliminar</button>
@@ -51,7 +51,7 @@ const Provider = ({
   );
 };
 
-const ListaProveedores = () => {
+const HistorialHallazgos = () => {
   const columns = [
     'ID',
     'Fecha',
@@ -112,4 +112,4 @@ const ListaProveedores = () => {
   );
 };
 
-export default ListaProveedores;
+export default HistorialHallazgos;

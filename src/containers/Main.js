@@ -13,6 +13,7 @@ import ListaProduccion from '../pages/ListaProduccion';
 import ListaCostos from '../pages/ListaCostos';
 import ListaPersonal from '../pages/ListaPersonal';
 import ListaVentas from '../pages/ListaVentas';
+import ModificarHallazgo from '../pages/ModificarHallazgo';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -40,7 +41,7 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
 
       <Switch>
         <Route exact path="/hallazgo/nuevo" component={NuevoHallazgo} />
-        <Route exact path="/hallazgo/modificar" />
+        <Route exact path="/hallazgo/:id" component={ModificarHallazgo} />
         <Route exact path="/hallazgo" component={HistorialHallazgos} />
         <Route
           exact

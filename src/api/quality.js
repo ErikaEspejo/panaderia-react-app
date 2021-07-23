@@ -6,35 +6,28 @@ export async function listFindings() {
   return data;
 }
 
-/* export async function getUser({ id }) {
-  const response = await http.get(`/users/${id}`);
+export async function getFinding({ id }) {
+  const response = await http.get(`/quality/${id}`);
   const { data } = response.data;
-  //return formatUser(data);
+
+  return data;
 }
 
-export async function updateUser({
-  idType,
-  identificationNumber,
-  name,
-  lastName,
-  username,
-  state,
-  email,
-  password,
-  position,
+export async function updateFinding({
+  id,
+  findingType,
+  finding,
+  actions,
+  accomplishment,
 }) {
-  return await http.put(`/users/${identificationNumber}`, {
-    idType,
-    name,
-    lastName,
-    username,
-    state,
-    email,
-    password,
-    position,
+  return await http.put(`/quality/${id}`, {
+    findingType,
+    finding,
+    actions,
+    accomplishment,
   });
 }
-*/
+
 export async function createFinding({
   date,
   findingType,
