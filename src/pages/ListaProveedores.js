@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FaUsersCog, FaPhoneAlt, FaUserAlt } from 'react-icons/fa';
+import {
+  FaUsersCog,
+  FaPhoneAlt,
+  FaUserAlt,
+  FaAddressBook,
+} from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { BiWorld } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
@@ -114,7 +119,7 @@ const ListaProveedores = () => {
 
   return (
     <>
-      <Headers title="Administrar Accesos" icon={<FaUsersCog />} />
+      <Headers title="Lista de Proveedores" icon={<FaAddressBook />} />
       <Container>
         <QueryBar />
         <Table columns={columns}>

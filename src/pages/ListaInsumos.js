@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FaUsersCog, FaPhoneAlt } from 'react-icons/fa';
+import { FaUsersCog, FaPhoneAlt, FaClipboardCheck } from 'react-icons/fa';
 import { BiWorld } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -99,7 +99,7 @@ const ListaInsumos = () => {
 
   return (
     <>
-      <Headers title="Administrar Accesos" icon={<FaUsersCog />} />
+      <Headers title="Lista de Insumos" icon={<FaClipboardCheck />} />
       <Container>
         <QueryBar />
         <Table columns={columns}>

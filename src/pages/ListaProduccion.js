@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { GiSlicedBread } from 'react-icons/gi';
+import { BsClockHistory } from 'react-icons/bs';
+
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import Headers from '../components/Headers';
 import API from '../api';
@@ -11,8 +13,8 @@ import Table from '../containers/Table';
 const QueryBar = () => {
   return (
     <>
-      <input type="text" placeholder="Filtrar por nombre" />
-      <input type="text" placeholder="Buscar por NIT" />
+      <input type="text" placeholder="Filtrar por fecha" />
+
       <Link to="/hallazgo/nuevo">
         <button className="action-button"> + Nuevo</button>
       </Link>
@@ -20,36 +22,30 @@ const QueryBar = () => {
   );
 };
 
-const Product = ({ id, product, quantity, supplies, cost, category }) => {
+const Production = ({ id, date, production }) => {
   return (
     <tr>
       <td>{id}</td>
-      <td>{product}</td>
-      <td>$ {cost}</td>
-      <td>{quantity} un</td>
-      <td>{supplies}</td>
-      <td>{category}</td>
+      <td>{format(new Date(date), 'MM/dd/yyyy')}</td>
+      <td>
+        {production.map((el, index) => {
+          return (
+            <p key={index}>
+              {el.product.name} - {el.quantity} unidad(es)
+            </p>
+          );
+        })}
+      </td>
 
       <td className="actions">
-        <Link to={`/accesos`}>
-          <button className="action-button">Modificar</button>
-        </Link>
         <button className="action-button">Eliminar</button>
       </td>
     </tr>
   );
 };
 
-const ListaProductos = () => {
-  const columns = [
-    'Ref',
-    'Producto',
-    'Valor Unitario',
-    'Cantidad',
-    'Insumos',
-    'Categoría',
-    '',
-  ];
+const ListaProduccion = () => {
+  const columns = ['ID', 'Fecha', 'Producción', ''];
 
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
@@ -57,7 +53,7 @@ const ListaProductos = () => {
 
   async function loadList() {
     try {
-      const data = await API.listProducts();
+      const data = await API.listProduction();
       if (data) {
         setData(data);
       }
@@ -73,20 +69,17 @@ const ListaProductos = () => {
 
   return (
     <>
-      <Headers title="Lista de Productos" icon={<GiSlicedBread />} />
+      <Headers title="Historial de Producción" icon={<BsClockHistory />} />
       <Container>
         <QueryBar />
         <Table columns={columns}>
-          {data.map(({ id, product, quantity, supplies, cost, category }) => {
+          {data.map(({ id, date, production }) => {
             return (
-              <Product
+              <Production
                 key={id}
                 id={id}
-                product={product}
-                quantity={quantity}
-                supplies={supplies}
-                cost={cost}
-                category={category}
+                date={date}
+                production={production}
               />
             );
           })}
@@ -96,4 +89,4 @@ const ListaProductos = () => {
   );
 };
 
-export default ListaProductos;
+export default ListaProduccion;
