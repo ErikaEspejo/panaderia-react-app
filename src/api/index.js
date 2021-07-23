@@ -6,6 +6,7 @@ import * as Production from './production';
 import * as Costs from './costs';
 import * as Workers from './workers';
 import * as Sales from './sales';
+import * as Quality from './quality';
 
 const API = {
   ...Users,
@@ -16,6 +17,7 @@ const API = {
   ...Costs,
   ...Workers,
   ...Sales,
+  ...Quality,
 };
 
 export default API;

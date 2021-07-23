@@ -1,78 +1,59 @@
-import React from 'react';
-import { FaListUl } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { BiListCheck } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import Headers from '../components/Headers';
+import API from '../api';
 import Container from '../containers/Container';
 import Table from '../containers/Table';
-
-const data = [
-  {
-    id: 2,
-    date: '2021-05-12T05:00:00.000Z',
-    findingType: 'Tecnológico',
-    finding: 'El horno esta generando problemas electricos',
-    actions: 'Asistencia tecnica, arreglo de componentes',
-    accomplishment: true,
-    createdAt: '2021-07-05T21:18:00.000Z',
-    updatedAt: '2021-07-05T21:18:32.000Z',
-  },
-  {
-    id: 4,
-    date: '2021-05-12T05:00:00.000Z',
-    findingType: 'Tecnológico',
-    finding: 'El horno esta generando problemas electricos',
-    actions: 'Asistencia tecnica',
-    accomplishment: false,
-    createdAt: '2021-07-05T21:18:03.000Z',
-    updatedAt: '2021-07-05T21:18:03.000Z',
-  },
-];
 
 const QueryBar = () => {
   return (
     <>
-      <label>
-        Filtrar por Fecha
-        <input type="date" />
-      </label>
       <input type="text" placeholder="Filtrar por tipo de hallazgo" />
-      <input type="text" placeholder="Buscar por Numero" />
+      <input type="text" placeholder="Buscar por ID" />
       <Link to="/hallazgo/nuevo">
-        <button className="action-button">Nuevo</button>
+        <button className="action-button"> + Nuevo</button>
       </Link>
     </>
   );
 };
 
-const TableContent = () => {
-  const content = data.map((el, index) => {
-    return (
-      <tr key={index}>
-        <td>{el.id}</td>
-        <td>{format(new Date(el.createdAt), 'MM/dd/yyyy')}</td>
-        <td>{el.findingType}</td>
-        <td>{el.finding}</td>
-        <td>{el.actions}</td>
-        <td>
-          <input type="checkbox" checked={el.accomplishment} disabled />
-        </td>
-        <td className="actions">
-          <Link to={`/hallazgo/modificar/${el.id}`}>
-            <button className="action-button">Modificar</button>
-          </Link>
-          <button className="action-button">Eliminar</button>
-        </td>
-      </tr>
-    );
-  });
-  return content;
+const Provider = ({
+  id,
+  date,
+  findingType,
+  finding,
+  actions,
+  accomplishment,
+}) => {
+  return (
+    <tr>
+      <td>{id}</td>
+      <td>{format(new Date(date), 'MM/dd/yyyy')}</td>
+      <td>{findingType}</td>
+      <td>{finding}</td>
+      <td>{actions}</td>
+      <td>
+        <input type="checkbox" checked={accomplishment} disabled />
+      </td>
+
+      <td className="actions">
+        <Link to={`/accesos`}>
+          <button className="action-button">Modificar</button>
+        </Link>
+        <button className="action-button">Eliminar</button>
+      </td>
+    </tr>
+  );
 };
 
-const HistorialHallazgos = () => {
+const ListaProveedores = () => {
   const columns = [
-    'No. Hallazgo',
+    'ID',
     'Fecha',
     'Tipo de Hallazgo',
     'Hallazgo',
@@ -81,17 +62,51 @@ const HistorialHallazgos = () => {
     '',
   ];
 
+  const [data, setData] = useState([]);
+  const [error, setError] = useState('');
+  const history = useHistory();
+
+  async function loadList() {
+    try {
+      const data = await API.listFindings();
+      if (data) {
+        setData(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loadList();
+  }, []);
+
   return (
     <>
-      <Headers title="Historial de Hallazgos" icon={<FaListUl />} />
+      <Headers title="Historial de Hallazgos" icon={<BiListCheck />} />
       <Container>
         <QueryBar />
         <Table columns={columns}>
-          <TableContent />
+          {data.map(
+            ({ id, date, findingType, finding, actions, accomplishment }) => {
+              return (
+                <Provider
+                  key={id}
+                  id={id}
+                  date={date}
+                  findingType={findingType}
+                  finding={finding}
+                  actions={actions}
+                  accomplishment={accomplishment}
+                />
+              );
+            }
+          )}
         </Table>
       </Container>
     </>
   );
 };
 
-export default HistorialHallazgos;
+export default ListaProveedores;
