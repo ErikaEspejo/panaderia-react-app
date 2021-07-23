@@ -1,18 +1,18 @@
 import http from '../utils/http';
-/* import { format } from 'date-fns';
-import { es } from 'date-fns/locale'; */
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
-/* function formatUser(user) {
+function formatUser(user) {
   const dateCreatedAt = `${format(new Date(user.createdAt), 'MMMM', {
     locale: es,
   })} de ${format(new Date(user.createdAt), 'yyyy')}`;
 
   return {
     ...user,
-    id: user._id,
+    id: user.identificationNumber,
     dateCreatedAt,
   };
-} */
+}
 
 export async function login({ username = '', password = '' }) {
   const response = await http.post(`/users/login`, {
@@ -26,6 +26,12 @@ export async function login({ username = '', password = '' }) {
   } else {
     return Promise.reject(message);
   }
+}
+
+export async function listUsers() {
+  const response = await http.get(`/users/`);
+  const { data } = response.data;
+  return data;
 }
 
 /* export async function getUser({ id }) {

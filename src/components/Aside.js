@@ -63,8 +63,6 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
     actions: { logout },
   } = useStore();
 
-  console.log(user);
-
   const showProfileInfo = (name, lastname) => {
     return collapsed ? (
       <IconInfo />

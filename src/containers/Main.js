@@ -5,6 +5,7 @@ import { FaBars } from 'react-icons/fa';
 
 import HistorialHallazgos from '../pages/HistorialHallazgos';
 import NuevoHallazgo from '../pages/NuevoHallazgo';
+import ListaAccesos from '../pages/ListaAccesos';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -51,7 +52,7 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
         <Route exact path="/personal/nuevo" />
         <Route exact path="/personal/modificar" />
         <Route exact path="/ventas" />
-        <Route exact path="/admin-accesos" />
+        <Route exact path="/accesos" component={ListaAccesos} />
         <Route exact path="/reportes" />
       </Switch>
     </main>
