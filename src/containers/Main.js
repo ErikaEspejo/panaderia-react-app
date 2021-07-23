@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 
 import HistorialHallazgos from '../pages/HistorialHallazgos';
+import NuevoHallazgo from '../pages/NuevoHallazgo';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -30,7 +31,7 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
       </div>
 
       <Switch>
-        <Route exact path="/hallazgo/nuevo" />
+        <Route exact path="/hallazgo/nuevo" component={NuevoHallazgo} />
         <Route exact path="/hallazgo/modificar" />
         <Route exact path="/hallazgo" component={HistorialHallazgos} />
         <Route exact path="/produccion/proveedor" />

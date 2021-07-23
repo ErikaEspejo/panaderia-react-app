@@ -77,7 +77,7 @@ const HistorialHallazgos = () => {
     'Tipo de Hallazgo',
     'Hallazgo',
     'Acciones Correctivas',
-    'Cumplimiento',
+    'Cumpl.',
     '',
   ];
 

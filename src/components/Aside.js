@@ -8,16 +8,18 @@ import {
   SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { HiBadgeCheck, HiShoppingCart } from 'react-icons/hi';
 import { FaTruck, FaUserTie, FaChartLine, FaUsersCog } from 'react-icons/fa';
 import { RiCoinsFill } from 'react-icons/ri';
 import { FiLogOut } from 'react-icons/fi';
 import sidebarBg from './assets/bg1.jpg';
 
+import { isAuthenticated, clearSession } from '../utils/auth';
+import { useStore } from '../store/Store';
 import profilePhoto from './assets/profile-photo.png';
 
-const FullInfo = () => {
+const FullInfo = ({ userName, userLastName }) => {
   return (
     <>
       <h3 style={{ fontSize: '12px' }}>PORTAL ADMINISTRATIVO</h3>
@@ -28,7 +30,9 @@ const FullInfo = () => {
           alt="User"
         />
         <div style={{ marginLeft: '15px' }}>
-          <h5 style={{ margin: '0 0 10px 0' }}>Administrador</h5>
+          <h5 style={{ margin: '0 0 10px 0' }}>
+            {userName} {userLastName}
+          </h5>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div
               style={{
@@ -53,8 +57,20 @@ const IconInfo = () => {
 };
 
 const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
-  const showProfileInfo = () => {
-    return collapsed ? <IconInfo /> : <FullInfo />;
+  const history = useHistory();
+  const {
+    selectors: { user },
+    actions: { logout },
+  } = useStore();
+
+  console.log(user);
+
+  const showProfileInfo = (name, lastname) => {
+    return collapsed ? (
+      <IconInfo />
+    ) : (
+      <FullInfo userName={name} userLastName={lastname} />
+    );
   };
 
   return (
@@ -78,7 +94,7 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
             whiteSpace: 'nowrap',
           }}
         >
-          {showProfileInfo()}
+          {showProfileInfo(user.name, user.lastname)}
         </div>
       </SidebarHeader>
 
@@ -131,8 +147,15 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
 
       <SidebarFooter>
         <Menu iconShape="circle">
-          <MenuItem icon={<FiLogOut />}>
-            <Link to="/">Logout</Link>
+          <MenuItem
+            icon={<FiLogOut />}
+            onClick={() => {
+              clearSession();
+              logout();
+              history.push('/login');
+            }}
+          >
+            Logout
           </MenuItem>
         </Menu>
       </SidebarFooter>
