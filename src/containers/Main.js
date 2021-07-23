@@ -10,6 +10,9 @@ import ListaProveedores from '../pages/ListaProveedores';
 import ListaInsumos from '../pages/ListaInsumos';
 import ListaProductos from '../pages/ListaProductos';
 import ListaProduccion from '../pages/ListaProduccion';
+import ListaCostos from '../pages/ListaCostos';
+import ListaPersonal from '../pages/ListaPersonal';
+import ListaVentas from '../pages/ListaVentas';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -53,13 +56,13 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
         <Route exact path="/produccion/producto/nuevo" />
         <Route exact path="/produccion/producto/modificar" />
         <Route exact path="/produccion" component={ListaProduccion} />
-        <Route exact path="/costos" />
+        <Route exact path="/costos" component={ListaCostos} />
         <Route exact path="/costos/nuevo" />
         <Route exact path="/costos/modificar" />
-        <Route exact path="/personal" />
+        <Route exact path="/personal" component={ListaPersonal} />
         <Route exact path="/personal/nuevo" />
         <Route exact path="/personal/modificar" />
-        <Route exact path="/ventas" />
+        <Route exact path="/ventas" component={ListaVentas} />
         <Route exact path="/accesos" component={ListaAccesos} />
         <Route exact path="/reportes" />
       </Switch>
