@@ -34,29 +34,21 @@ export async function updateUser({
     position,
   });
 }
-
-export async function createUser({
-  idType,
-  identificationNumber,
-  name,
-  lastName,
-  username,
-  state,
-  position,
-  email,
-  password,
+*/
+export async function createFinding({
+  date,
+  findingType,
+  finding,
+  actions,
+  accomplishment,
 }) {
-  const response = await http.post(`/users`, {
-    idType,
-    identificationNumber,
-    name,
-    lastName,
-    username,
-    state,
-    position,
-    email,
-    password,
+  const response = await http.post(`/quality`, {
+    date,
+    findingType,
+    finding,
+    actions,
+    accomplishment,
   });
   const { data } = response.data;
-  //return formatUser(data);
-} */
+  return data;
+}
