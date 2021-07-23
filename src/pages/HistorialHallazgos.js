@@ -88,21 +88,24 @@ const ListaProveedores = () => {
       <Container>
         <QueryBar />
         <Table columns={columns}>
-          {data.map(
-            ({ id, date, findingType, finding, actions, accomplishment }) => {
-              return (
-                <Provider
-                  key={id}
-                  id={id}
-                  date={date}
-                  findingType={findingType}
-                  finding={finding}
-                  actions={actions}
-                  accomplishment={accomplishment}
-                />
-              );
-            }
-          )}
+          {data
+            .map(
+              ({ id, date, findingType, finding, actions, accomplishment }) => {
+                return (
+                  <Provider
+                    key={id}
+                    id={id}
+                    date={date}
+                    findingType={findingType}
+                    finding={finding}
+                    actions={actions}
+                    accomplishment={accomplishment}
+                  />
+                );
+              }
+            )
+            .sort()
+            .reverse()}
         </Table>
       </Container>
     </>
