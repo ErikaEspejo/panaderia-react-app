@@ -7,6 +7,7 @@ import HistorialHallazgos from '../pages/HistorialHallazgos';
 import NuevoHallazgo from '../pages/NuevoHallazgo';
 import ListaAccesos from '../pages/ListaAccesos';
 import ListaProveedores from '../pages/ListaProveedores';
+import ListaInsumos from '../pages/ListaInsumos.js';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -43,7 +44,7 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
         />
         <Route exact path="/produccion/proveedor/nuevo" />
         <Route exact path="/produccion/proveedor/modificar" />
-        <Route exact path="/produccion/insumo" />
+        <Route exact path="/produccion/insumos" component={ListaInsumos} />
         <Route exact path="/produccion/insumo/nuevo" />
         <Route exact path="/produccion/insumo/modificar" />
         <Route exact path="/produccion/producto" />

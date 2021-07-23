@@ -1,8 +1,9 @@
 import http from '../utils/http';
 
-export async function listProviders() {
-  const response = await http.get(`/providers`);
+export async function listSupplies() {
+  const response = await http.get(`/supplies`);
   const { data } = response.data;
+  console.log(data);
   return data;
 }
 
