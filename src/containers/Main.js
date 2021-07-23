@@ -6,6 +6,7 @@ import { FaBars } from 'react-icons/fa';
 import HistorialHallazgos from '../pages/HistorialHallazgos';
 import NuevoHallazgo from '../pages/NuevoHallazgo';
 import ListaAccesos from '../pages/ListaAccesos';
+import ListaProveedores from '../pages/ListaProveedores';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -35,7 +36,11 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
         <Route exact path="/hallazgo/nuevo" component={NuevoHallazgo} />
         <Route exact path="/hallazgo/modificar" />
         <Route exact path="/hallazgo" component={HistorialHallazgos} />
-        <Route exact path="/produccion/proveedor" />
+        <Route
+          exact
+          path="/produccion/proveedor"
+          component={ListaProveedores}
+        />
         <Route exact path="/produccion/proveedor/nuevo" />
         <Route exact path="/produccion/proveedor/modificar" />
         <Route exact path="/produccion/insumo" />
