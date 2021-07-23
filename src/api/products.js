@@ -1,7 +1,7 @@
 import http from '../utils/http';
 
-export async function listSupplies() {
-  const response = await http.get(`/supplies`);
+export async function listProducts() {
+  const response = await http.get(`/products`);
   const { data } = response.data;
   return data;
 }

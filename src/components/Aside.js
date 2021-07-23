@@ -114,7 +114,7 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
               <Link to="/produccion/insumos">Insumos</Link>
             </MenuItem>
             <MenuItem>
-              <Link to="/productos">Productos</Link>
+              <Link to="/produccion/productos">Productos</Link>
             </MenuItem>
             <MenuItem>
               <Link to="/produccion">Producción</Link>
