@@ -28,6 +28,10 @@ export async function updateFinding({
   });
 }
 
+export async function removeFinding({ id }) {
+  return await http.delete(`/quality`, { data: { id } });
+}
+
 export async function createFinding({
   date,
   findingType,

@@ -14,6 +14,7 @@ import ListaCostos from '../pages/ListaCostos';
 import ListaPersonal from '../pages/ListaPersonal';
 import ListaVentas from '../pages/ListaVentas';
 import ModificarHallazgo from '../pages/ModificarHallazgo';
+import EliminarHallazgo from '../pages/EliminarHallazgo';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -43,6 +44,7 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
         <Route exact path="/hallazgo/nuevo" component={NuevoHallazgo} />
         <Route exact path="/hallazgo/:id" component={ModificarHallazgo} />
         <Route exact path="/hallazgo" component={HistorialHallazgos} />
+        <Route exact path="/hallazgo/eliminar" component={EliminarHallazgo} />
         <Route
           exact
           path="/produccion/proveedor"

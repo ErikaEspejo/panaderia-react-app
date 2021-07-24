@@ -9,6 +9,8 @@ import Headers from '../components/Headers';
 import API from '../api';
 import Container from '../containers/Container';
 import Table from '../containers/Table';
+import EliminarHallazgo from '../pages/EliminarHallazgo';
+import Modal from '../containers/Modal';
 
 const QueryBar = () => {
   return (
@@ -22,7 +24,7 @@ const QueryBar = () => {
   );
 };
 
-const Provider = ({
+const Finding = ({
   id,
   date,
   findingType,
@@ -30,6 +32,7 @@ const Provider = ({
   actions,
   accomplishment,
 }) => {
+  const [show, setShow] = useState(false);
   return (
     <tr>
       <td>{id}</td>
@@ -45,7 +48,19 @@ const Provider = ({
         <Link to={`/hallazgo/${id}`}>
           <button className="action-button">Modificar</button>
         </Link>
-        <button className="action-button">Eliminar</button>
+        <button className="action-button" onClick={() => setShow(true)}>
+          Eliminar
+        </button>
+        <Modal
+          show={show}
+          children={
+            <EliminarHallazgo
+              id={id}
+              show={show}
+              onClose={() => setShow(false)}
+            />
+          }
+        />
       </td>
     </tr>
   );
@@ -92,7 +107,7 @@ const HistorialHallazgos = () => {
             .map(
               ({ id, date, findingType, finding, actions, accomplishment }) => {
                 return (
-                  <Provider
+                  <Finding
                     key={id}
                     id={id}
                     date={date}
