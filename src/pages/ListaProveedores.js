@@ -9,6 +9,8 @@ import Headers from '../components/Headers';
 import API from '../api';
 import Container from '../containers/Container';
 import Table from '../containers/Table';
+import EliminarProveedor from './EliminarProveedor';
+import Modal from '../containers/Modal';
 
 const QueryBar = () => {
   const history = useHistory();
@@ -44,6 +46,7 @@ const Provider = ({
   createdAt,
 }) => {
   const history = useHistory();
+  const [show, setShow] = useState(false);
   return (
     <tr>
       <td>{id}</td>
@@ -87,7 +90,20 @@ const Provider = ({
         >
           Modificar
         </button>
-        <button className="action-button">Eliminar</button>
+        <button className="action-button" onClick={() => setShow(true)}>
+          Eliminar
+        </button>
+        <Modal
+          show={show}
+          children={
+            <EliminarProveedor
+              id={id}
+              name={providerName}
+              show={show}
+              onClose={() => setShow(false)}
+            />
+          }
+        />
       </td>
     </tr>
   );

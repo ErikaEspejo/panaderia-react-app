@@ -60,3 +60,7 @@ export async function createProvider({
     supplies,
   });
 }
+
+export async function removeProvider({ id }) {
+  return await http.delete(`/providers`, { data: { id } });
+}
