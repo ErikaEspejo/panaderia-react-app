@@ -16,6 +16,7 @@ import ListaVentas from '../pages/ListaVentas';
 import ModificarHallazgo from '../pages/ModificarHallazgo';
 import EliminarHallazgo from '../pages/EliminarHallazgo';
 import NuevoProveedor from '../pages/NuevoProveedor';
+import ModificarProveedor from '../pages/ModificarProveedor';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -56,7 +57,11 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
           path="/produccion/proveedor/nuevo"
           component={NuevoProveedor}
         />
-        <Route exact path="/produccion/proveedor/modificar" />
+        <Route
+          exact
+          path="/produccion/proveedor/:id"
+          component={ModificarProveedor}
+        />
         <Route exact path="/produccion/insumos" component={ListaInsumos} />
         <Route exact path="/produccion/insumo/nuevo" />
         <Route exact path="/produccion/insumo/modificar" />

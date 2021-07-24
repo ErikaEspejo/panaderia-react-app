@@ -60,7 +60,7 @@ const Provider = ({
           {providerWeb}
         </p>
       </td>
-      <td>{address}</td>
+      <td>{address.replaceAll('/', ' - ')}</td>
       <td>
         <p>
           <FaUserAlt />
