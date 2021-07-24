@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { IoIosCreate } from 'react-icons/io';
 import { FaSave } from 'react-icons/fa';
 import API from '../api';
-import { useHistory } from 'react-router-dom';
+import { useStore } from '../store/Store';
+import { useHistory, useParams } from 'react-router-dom';
 import Alert from '../components/Alert';
+import { formatISO } from 'date-fns';
+import useSupplies from '../containers/useSupplies';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -11,10 +14,14 @@ import Container from '../containers/Container';
 const type = ['Harina de trigo', 'Azucar', 'Especias'];
 const units = ['Kg', 'Lb', 'g', 'Lt'];
 
-const NuevoInsumo = () => {
+const ModificarInsumo = () => {
+  const { id } = useParams();
   const history = useHistory();
-  const [error, setError] = useState('');
   const [provider, setProvider] = useState([]);
+  const [provFilter, setProvFilter] = useState([]);
+  const [error, setError] = useState('');
+
+  const { supply, providerId } = useSupplies({ id });
 
   async function loadProviders() {
     try {
@@ -45,7 +52,8 @@ const NuevoInsumo = () => {
     ) {
       try {
         setError('');
-        await API.createSupply({
+        await API.updateSupply({
+          supply_id: id,
           name: name.value,
           type: type.value,
           quantity: parseFloat(quantity.value),
@@ -56,9 +64,7 @@ const NuevoInsumo = () => {
         history.push('/produccion/insumos');
       } catch (error) {
         console.log(error);
-        setError(
-          'El proveedor no ha podido ser creado o se ha creado incorrectamente'
-        );
+        setError('El insumo no ha podido ser actualizado correctamente');
       }
     } else {
       setError('Porfavor ingrese los datos solicitados');
@@ -69,16 +75,21 @@ const NuevoInsumo = () => {
     loadProviders();
   }, []);
 
+  if (!supply) return null;
+
   return (
     <>
-      <Headers title="Nuevo Insumo" icon={<IoIosCreate />} />
+      <Headers
+        title={`Modificar Insumo - "${supply.name}"`}
+        icon={<IoIosCreate />}
+      />
       {error && <Alert severity="error" message={error} />}
       <br />
       <Container>
         <form onSubmit={onSubmit}>
           <label htmlFor="">
             Nombre de Insumo
-            <input type="text" name="name" />
+            <input type="text" name="name" defaultValue={supply.name} />
           </label>
           <label htmlFor="">
             Tipo de Insumo
@@ -90,7 +101,12 @@ const NuevoInsumo = () => {
           </label>
           <label htmlFor="">
             Cantidad
-            <input type="number" step="0.01" name="quantity" />
+            <input
+              type="number"
+              step="0.01"
+              name="quantity"
+              defaultValue={supply.quantity}
+            />
           </label>
           <select name="units">
             {units.map((unit, index) => {
@@ -100,7 +116,12 @@ const NuevoInsumo = () => {
           <label htmlFor="">
             Proveedor
             <select name="ProviderId">
+              <option
+                selected
+                disabled
+              >{`${providerId} - ${supply.Provider.providerName}`}</option>
               {provider.map((prov, index) => {
+                index = prov.id;
                 return (
                   <option key={index}>
                     {prov.id} - {prov.providerName}
@@ -118,7 +139,12 @@ const NuevoInsumo = () => {
           </button>
           <label htmlFor="">
             Costo Total
-            <input type="number" step="0.01" name="totalCost" />
+            <input
+              type="number"
+              step="0.01"
+              name="totalCost"
+              defaultValue={supply.totalCost}
+            />
           </label>
           <button type="submit">
             {' '}
@@ -137,4 +163,4 @@ const NuevoInsumo = () => {
   );
 };
 
-export default NuevoInsumo;
+export default ModificarInsumo;

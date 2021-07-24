@@ -32,6 +32,7 @@ const Supply = ({
   type,
   createdAt,
 }) => {
+  const history = useHistory();
   return (
     <tr>
       <td>{supply_id}</td>
@@ -56,9 +57,15 @@ const Supply = ({
       <td>{format(new Date(createdAt), 'MM/dd/yyyy')}</td>
 
       <td className="actions">
-        <Link to={`/accesos`}>
-          <button className="action-button">Modificar</button>
-        </Link>
+        <button
+          className="action-button"
+          onClick={() => {
+            history.push(`/produccion/insumo/${supply_id}`);
+          }}
+        >
+          Modificar
+        </button>
+
         <button className="action-button">Eliminar</button>
       </td>
     </tr>

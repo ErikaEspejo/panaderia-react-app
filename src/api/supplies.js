@@ -6,35 +6,31 @@ export async function listSupplies() {
   return data;
 }
 
-/* export async function getUser({ id }) {
-  const response = await http.get(`/users/${id}`);
+export async function getSupply({ id }) {
+  const response = await http.get(`/supplies/${id}`);
   const { data } = response.data;
-  //return formatUser(data);
+  return data;
 }
 
-export async function updateUser({
-  idType,
-  identificationNumber,
+export async function updateSupply({
+  supply_id,
   name,
-  lastName,
-  username,
-  state,
-  email,
-  password,
-  position,
+  type,
+  quantity,
+  units,
+  ProviderId,
+  totalCost,
 }) {
-  return await http.put(`/users/${identificationNumber}`, {
-    idType,
+  return await http.put(`/supplies/${supply_id}`, {
     name,
-    lastName,
-    username,
-    state,
-    email,
-    password,
-    position,
+    type,
+    quantity,
+    units,
+    ProviderId,
+    totalCost,
   });
 }
-*/
+
 export async function createSupply({
   date,
   name,
