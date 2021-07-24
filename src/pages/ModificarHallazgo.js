@@ -80,7 +80,6 @@ const ModificarHallazgo = () => {
                 readOnly
               ></input>
             </label>
-            <button>Nuevo</button>
           </div>
           <div>
             <label htmlFor="">
@@ -109,6 +108,13 @@ const ModificarHallazgo = () => {
           <button type="submit">
             {' '}
             <FaSave /> Guardar Hallazgo
+          </button>
+          <button
+            onClick={() => {
+              history.push('/hallazgo');
+            }}
+          >
+            Cancel
           </button>
         </form>
       </Container>

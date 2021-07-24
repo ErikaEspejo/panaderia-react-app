@@ -98,6 +98,13 @@ const NuevoHallazgo = () => {
             {' '}
             <FaSave /> Guardar Hallazgo
           </button>
+          <button
+            onClick={() => {
+              history.push('/hallazgo');
+            }}
+          >
+            Cancel
+          </button>
         </form>
       </Container>
     </>
