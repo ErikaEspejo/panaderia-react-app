@@ -13,13 +13,21 @@ import EliminarHallazgo from '../pages/EliminarHallazgo';
 import Modal from '../containers/Modal';
 
 const QueryBar = () => {
+  const history = useHistory();
   return (
     <>
       <input type="text" placeholder="Filtrar por tipo de hallazgo" />
       <input type="text" placeholder="Buscar por ID" />
-      <Link to="/hallazgo/nuevo">
-        <button className="action-button"> + Nuevo</button>
-      </Link>
+
+      <button
+        className="action-button"
+        onClick={() => {
+          history.push('/hallazgo/nuevo');
+        }}
+      >
+        {' '}
+        + Nuevo
+      </button>
     </>
   );
 };
@@ -32,6 +40,7 @@ const Finding = ({
   actions,
   accomplishment,
 }) => {
+  const history = useHistory();
   const [show, setShow] = useState(false);
   return (
     <tr>
@@ -45,9 +54,15 @@ const Finding = ({
       </td>
 
       <td className="actions">
-        <Link to={`/hallazgo/${id}`}>
-          <button className="action-button">Modificar</button>
-        </Link>
+        <button
+          className="action-button"
+          onClick={() => {
+            history.push(`/hallazgo/${id}`);
+          }}
+        >
+          Modificar
+        </button>
+
         <button className="action-button" onClick={() => setShow(true)}>
           Eliminar
         </button>

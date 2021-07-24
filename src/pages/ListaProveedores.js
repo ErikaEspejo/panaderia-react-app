@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  FaUsersCog,
-  FaPhoneAlt,
-  FaUserAlt,
-  FaAddressBook,
-} from 'react-icons/fa';
+import { FaPhoneAlt, FaUserAlt, FaAddressBook } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { BiWorld } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import Headers from '../components/Headers';
@@ -17,13 +11,21 @@ import Container from '../containers/Container';
 import Table from '../containers/Table';
 
 const QueryBar = () => {
+  const history = useHistory();
   return (
     <>
       <input type="text" placeholder="Filtrar por nombre" />
       <input type="text" placeholder="Buscar por NIT" />
-      <Link to="/hallazgo/nuevo">
-        <button className="action-button"> + Nuevo</button>
-      </Link>
+
+      <button
+        className="action-button"
+        onClick={() => {
+          history.push('/produccion/proveedor/nuevo');
+        }}
+      >
+        {' '}
+        + Nuevo
+      </button>
     </>
   );
 };
@@ -41,6 +43,7 @@ const Provider = ({
   supplies,
   createdAt,
 }) => {
+  const history = useHistory();
   return (
     <tr>
       <td>{id}</td>
@@ -76,9 +79,14 @@ const Provider = ({
       <td>{format(new Date(createdAt), 'MM/dd/yyyy')}</td>
 
       <td className="actions">
-        <Link to={`/accesos`}>
-          <button className="action-button">Modificar</button>
-        </Link>
+        <button
+          className="action-button"
+          onClick={() => {
+            history.push(`/produccion/proveedor/${id}`);
+          }}
+        >
+          Modificar
+        </button>
         <button className="action-button">Eliminar</button>
       </td>
     </tr>
@@ -123,40 +131,43 @@ const ListaProveedores = () => {
       <Container>
         <QueryBar />
         <Table columns={columns}>
-          {data.map(
-            ({
-              id,
-              nit,
-              providerName,
-              providerPhone,
-              providerWeb,
-              email,
-              address,
-              contactEmail,
-              contactName,
-              contactPhone,
-              supplies,
-              createdAt,
-            }) => {
-              return (
-                <Provider
-                  key={id}
-                  id={id}
-                  nit={nit}
-                  providerName={providerName}
-                  providerPhone={providerPhone}
-                  providerWeb={providerWeb}
-                  email={email}
-                  address={address}
-                  contactEmail={contactEmail}
-                  contactName={contactName}
-                  contactPhone={contactPhone}
-                  supplies={supplies}
-                  createdAt={createdAt}
-                />
-              );
-            }
-          )}
+          {data
+            .map(
+              ({
+                id,
+                nit,
+                providerName,
+                providerPhone,
+                providerWeb,
+                email,
+                address,
+                contactEmail,
+                contactName,
+                contactPhone,
+                supplies,
+                createdAt,
+              }) => {
+                return (
+                  <Provider
+                    key={id}
+                    id={id}
+                    nit={nit}
+                    providerName={providerName}
+                    providerPhone={providerPhone}
+                    providerWeb={providerWeb}
+                    email={email}
+                    address={address}
+                    contactEmail={contactEmail}
+                    contactName={contactName}
+                    contactPhone={contactPhone}
+                    supplies={supplies}
+                    createdAt={createdAt}
+                  />
+                );
+              }
+            )
+            .sort()
+            .reverse()}
         </Table>
       </Container>
     </>

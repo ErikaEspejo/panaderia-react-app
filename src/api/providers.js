@@ -34,29 +34,27 @@ export async function updateUser({
     position,
   });
 }
-
-export async function createUser({
-  idType,
-  identificationNumber,
-  name,
-  lastName,
-  username,
-  state,
-  position,
-  email,
-  password,
+*/
+export async function createProvider({
+  nit,
+  providerName,
+  providerPhone,
+  providerWeb,
+  address,
+  contactName,
+  contactPhone,
+  contactEmail,
+  supplies,
 }) {
-  const response = await http.post(`/users`, {
-    idType,
-    identificationNumber,
-    name,
-    lastName,
-    username,
-    state,
-    position,
-    email,
-    password,
+  await http.post(`/providers`, {
+    nit,
+    providerName,
+    providerPhone,
+    providerWeb,
+    address,
+    contactName,
+    contactPhone,
+    contactEmail,
+    supplies,
   });
-  const { data } = response.data;
-  //return formatUser(data);
-} */
+}
