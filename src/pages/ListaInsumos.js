@@ -9,6 +9,8 @@ import Headers from '../components/Headers';
 import API from '../api';
 import Container from '../containers/Container';
 import Table from '../containers/Table';
+import EliminarInsumo from './EliminarInsumo';
+import Modal from '../containers/Modal';
 
 const QueryBar = () => {
   return (
@@ -33,6 +35,7 @@ const Supply = ({
   createdAt,
 }) => {
   const history = useHistory();
+  const [show, setShow] = useState(false);
   return (
     <tr>
       <td>{supply_id}</td>
@@ -66,7 +69,20 @@ const Supply = ({
           Modificar
         </button>
 
-        <button className="action-button">Eliminar</button>
+        <button className="action-button" onClick={() => setShow(true)}>
+          Eliminar
+        </button>
+        <Modal
+          show={show}
+          children={
+            <EliminarInsumo
+              id={supply_id}
+              name={name}
+              show={show}
+              onClose={() => setShow(false)}
+            />
+          }
+        />
       </td>
     </tr>
   );

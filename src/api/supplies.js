@@ -50,3 +50,7 @@ export async function createSupply({
     totalCost,
   });
 }
+
+export async function removeSupply({ supply_id }) {
+  return await http.delete(`/supplies`, { data: { supply_id } });
+}
