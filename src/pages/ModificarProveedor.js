@@ -73,7 +73,7 @@ const ModificarProveedor = () => {
   return (
     <>
       <Headers
-        title={`Modificar Proveedor - No. ${provider.providerName}`}
+        title={`Modificar Proveedor - "${provider.providerName}"`}
         icon={<IoIosCreate />}
       />
       {error && <Alert severity="error" message={error} />}
