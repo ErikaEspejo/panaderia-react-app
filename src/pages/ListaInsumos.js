@@ -15,7 +15,7 @@ const QueryBar = () => {
     <>
       <input type="text" placeholder="Filtrar por nombre" />
       <input type="text" placeholder="Buscar por NIT" />
-      <Link to="/hallazgo/nuevo">
+      <Link to="/produccion/insumo/nuevo">
         <button className="action-button"> + Nuevo</button>
       </Link>
     </>
@@ -48,9 +48,10 @@ const Supply = ({
           {Provider.providerWeb}
         </p>
       </td>
-      <td>{quantity}</td>
-      <td>{units}</td>
-      <td>{totalCost}</td>
+      <td>
+        {quantity} {units}
+      </td>
+      <td>$ {totalCost}</td>
       <td>{type}</td>
       <td>{format(new Date(createdAt), 'MM/dd/yyyy')}</td>
 
@@ -70,7 +71,6 @@ const ListaInsumos = () => {
     'Nombre',
     'Proveedor',
     'Cantidad',
-    'Unidad de Medida',
     'Costo Total',
     'Tipo',
     'Fecha de Compra',
@@ -103,32 +103,35 @@ const ListaInsumos = () => {
       <Container>
         <QueryBar />
         <Table columns={columns}>
-          {data.map(
-            ({
-              supply_id,
-              name,
-              Provider,
-              quantity,
-              units,
-              totalCost,
-              type,
-              createdAt,
-            }) => {
-              return (
-                <Supply
-                  key={supply_id}
-                  supply_id={supply_id}
-                  name={name}
-                  Provider={Provider}
-                  quantity={quantity}
-                  units={units}
-                  totalCost={totalCost}
-                  type={type}
-                  createdAt={createdAt}
-                />
-              );
-            }
-          )}
+          {data
+            .map(
+              ({
+                supply_id,
+                name,
+                Provider,
+                quantity,
+                units,
+                totalCost,
+                type,
+                createdAt,
+              }) => {
+                return (
+                  <Supply
+                    key={supply_id}
+                    supply_id={supply_id}
+                    name={name}
+                    Provider={Provider}
+                    quantity={quantity}
+                    units={units}
+                    totalCost={totalCost}
+                    type={type}
+                    createdAt={createdAt}
+                  />
+                );
+              }
+            )
+            .sort()
+            .reverse()}
         </Table>
       </Container>
     </>
