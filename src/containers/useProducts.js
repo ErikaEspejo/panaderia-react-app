@@ -11,7 +11,6 @@ export default function useSupplies({ id }) {
       setIsLoading(true);
       const data = await API.getProduct({ id });
       if (data) {
-        console.log(data);
         setProduct(data);
       }
     } catch (error) {

@@ -30,3 +30,7 @@ export async function createProduct({ product, cost, supplies, category }) {
     quantity: 0,
   });
 }
+
+export async function removeProduct({ id }) {
+  return await http.delete(`/products`, { data: { id } });
+}

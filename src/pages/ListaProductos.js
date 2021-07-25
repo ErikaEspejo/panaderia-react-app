@@ -7,6 +7,8 @@ import Headers from '../components/Headers';
 import API from '../api';
 import Container from '../containers/Container';
 import Table from '../containers/Table';
+import EliminarProducto from './EliminarProducto';
+import Modal from '../containers/Modal';
 
 const QueryBar = () => {
   const history = useHistory();
@@ -27,6 +29,7 @@ const QueryBar = () => {
 
 const Product = ({ id, product, quantity, supplies, cost, category }) => {
   const history = useHistory();
+  const [show, setShow] = useState(false);
   return (
     <tr>
       <td>{id}</td>
@@ -44,7 +47,20 @@ const Product = ({ id, product, quantity, supplies, cost, category }) => {
           Modificar
         </button>
 
-        <button className="action-button">Eliminar</button>
+        <button className="action-button" onClick={() => setShow(true)}>
+          Eliminar
+        </button>
+        <Modal
+          show={show}
+          children={
+            <EliminarProducto
+              id={id}
+              product={product}
+              show={show}
+              onClose={() => setShow(false)}
+            />
+          }
+        />
       </td>
     </tr>
   );
