@@ -13,7 +13,7 @@ export async function getCost({ id }) {
 }
 
 export async function updateCost({ id, date, costName, costType, costValue }) {
-  return await http.put(`/users/${id}`, {
+  return await http.put(`/costs/${id}`, {
     date,
     costName,
     costType,

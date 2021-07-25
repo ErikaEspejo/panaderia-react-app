@@ -22,6 +22,7 @@ const QueryBar = () => {
 };
 
 const Supply = ({ id, costName, costType, costValue, date }) => {
+  const history = useHistory();
   return (
     <tr>
       <td>{id}</td>
@@ -31,9 +32,13 @@ const Supply = ({ id, costName, costType, costValue, date }) => {
       <td>{format(new Date(date), 'MM/dd/yyyy')}</td>
 
       <td className="actions">
-        <Link to={`/accesos`}>
-          <button className="action-button">Modificar</button>
-        </Link>
+        <button
+          className="action-button"
+          onClick={() => history.push(`/costos/${id}`)}
+        >
+          Modificar
+        </button>
+
         <button className="action-button">Eliminar</button>
       </td>
     </tr>
