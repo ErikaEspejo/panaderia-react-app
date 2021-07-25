@@ -26,6 +26,7 @@ const QueryBar = () => {
 };
 
 const Product = ({ id, product, quantity, supplies, cost, category }) => {
+  const history = useHistory();
   return (
     <tr>
       <td>{id}</td>
@@ -36,9 +37,13 @@ const Product = ({ id, product, quantity, supplies, cost, category }) => {
       <td>{category}</td>
 
       <td className="actions">
-        <Link to={`/accesos`}>
-          <button className="action-button">Modificar</button>
-        </Link>
+        <button
+          className="action-button"
+          onClick={() => history.push(`/produccion/producto/${id}`)}
+        >
+          Modificar
+        </button>
+
         <button className="action-button">Eliminar</button>
       </td>
     </tr>

@@ -6,35 +6,21 @@ export async function listProducts() {
   return data;
 }
 
-/* export async function getUser({ id }) {
-  const response = await http.get(`/users/${id}`);
+export async function getProduct({ id }) {
+  const response = await http.get(`/products/${id}`);
   const { data } = response.data;
-  //return formatUser(data);
+  return data;
 }
 
-export async function updateUser({
-  idType,
-  identificationNumber,
-  name,
-  lastName,
-  username,
-  state,
-  email,
-  password,
-  position,
-}) {
-  return await http.put(`/users/${identificationNumber}`, {
-    idType,
-    name,
-    lastName,
-    username,
-    state,
-    email,
-    password,
-    position,
+export async function updateProduct({ id, product, cost, supplies, category }) {
+  return await http.put(`/products/${id}`, {
+    product,
+    cost,
+    supplies,
+    category,
   });
 }
-*/
+
 export async function createProduct({ product, cost, supplies, category }) {
   await http.post(`/products`, {
     product,
