@@ -83,7 +83,6 @@ const NuevoCosto = () => {
           </button>
           <button
             onClick={() => {
-              window.location.reload();
               history.push('/costos');
             }}
           >
