@@ -6,35 +6,21 @@ export async function listCosts() {
   return data;
 }
 
-/* export async function getUser({ id }) {
-  const response = await http.get(`/users/${id}`);
+export async function getCost({ id }) {
+  const response = await http.get(`/costs/${id}`);
   const { data } = response.data;
-  //return formatUser(data);
+  return data;
 }
 
-export async function updateUser({
-  idType,
-  identificationNumber,
-  name,
-  lastName,
-  username,
-  state,
-  email,
-  password,
-  position,
-}) {
-  return await http.put(`/users/${identificationNumber}`, {
-    idType,
-    name,
-    lastName,
-    username,
-    state,
-    email,
-    password,
-    position,
+export async function updateCost({ id, date, costName, costType, costValue }) {
+  return await http.put(`/users/${id}`, {
+    date,
+    costName,
+    costType,
+    costValue,
   });
 }
-*/
+
 export async function createCost({ date, costName, costType, costValue }) {
   await http.post(`/costs`, {
     date,
@@ -42,4 +28,8 @@ export async function createCost({ date, costName, costType, costValue }) {
     costType,
     costValue,
   });
+}
+
+export async function removeCost({ id }) {
+  return await http.delete(`/costs`, { data: { id } });
 }
