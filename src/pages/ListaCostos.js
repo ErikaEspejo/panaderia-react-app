@@ -14,7 +14,7 @@ const QueryBar = () => {
     <>
       <input type="text" placeholder="Filtrar por nombre" />
       <input type="text" placeholder="Buscar por referencia" />
-      <Link to="/hallazgo/nuevo">
+      <Link to="/costos/nuevo">
         <button className="action-button"> + Nuevo</button>
       </Link>
     </>
@@ -76,18 +76,21 @@ const ListaCostos = () => {
       <Container>
         <QueryBar />
         <Table columns={columns}>
-          {data.map(({ id, costName, costType, costValue, date }) => {
-            return (
-              <Supply
-                key={id}
-                id={id}
-                costName={costName}
-                costType={costType}
-                costValue={costValue}
-                date={date}
-              />
-            );
-          })}
+          {data
+            .map(({ id, costName, costType, costValue, date }) => {
+              return (
+                <Supply
+                  key={id}
+                  id={id}
+                  costName={costName}
+                  costType={costType}
+                  costValue={costValue}
+                  date={date}
+                />
+              );
+            })
+            .sort()
+            .reverse()}
         </Table>
       </Container>
     </>

@@ -34,29 +34,12 @@ export async function updateUser({
     position,
   });
 }
-
-export async function createUser({
-  idType,
-  identificationNumber,
-  name,
-  lastName,
-  username,
-  state,
-  position,
-  email,
-  password,
-}) {
-  const response = await http.post(`/users`, {
-    idType,
-    identificationNumber,
-    name,
-    lastName,
-    username,
-    state,
-    position,
-    email,
-    password,
+*/
+export async function createCost({ date, costName, costType, costValue }) {
+  await http.post(`/costs`, {
+    date,
+    costName,
+    costType,
+    costValue,
   });
-  const { data } = response.data;
-  //return formatUser(data);
-} */
+}
