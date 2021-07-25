@@ -80,7 +80,7 @@ const NuevoProducto = () => {
           </button>
           <button
             onClick={() => {
-              history.push('/produccion/insumos');
+              history.push('/produccion/productos');
             }}
           >
             Cancel
