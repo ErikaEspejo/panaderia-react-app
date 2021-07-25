@@ -11,13 +11,17 @@ import Container from '../containers/Container';
 import Table from '../containers/Table';
 
 const QueryBar = () => {
+  const history = useHistory();
   return (
     <>
       <input type="text" placeholder="Filtrar por fecha" />
 
-      <Link to="/hallazgo/nuevo">
-        <button className="action-button"> + Nuevo</button>
-      </Link>
+      <button
+        className="action-button"
+        onClick={() => history.push('/produccion/nuevo')}
+      >
+        + Nuevo
+      </button>
     </>
   );
 };
