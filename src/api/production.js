@@ -41,3 +41,7 @@ export async function createProduction({ date, production }) {
     production,
   });
 }
+
+export async function removeProduction({ id }) {
+  return await http.delete(`/production`, { data: { id } });
+}

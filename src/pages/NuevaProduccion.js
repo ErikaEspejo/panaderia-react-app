@@ -118,6 +118,8 @@ const NuevoProveedor = () => {
           </button>
           <button
             onClick={() => {
+              totalProducts = [];
+              products = [];
               history.push('/produccion');
             }}
           >

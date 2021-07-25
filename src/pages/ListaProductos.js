@@ -46,21 +46,6 @@ const Product = ({ id, product, quantity, supplies, cost, category }) => {
         >
           Modificar
         </button>
-
-        <button className="action-button" onClick={() => setShow(true)}>
-          Eliminar
-        </button>
-        <Modal
-          show={show}
-          children={
-            <EliminarProducto
-              id={id}
-              product={product}
-              show={show}
-              onClose={() => setShow(false)}
-            />
-          }
-        />
       </td>
     </tr>
   );
