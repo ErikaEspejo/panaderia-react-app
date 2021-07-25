@@ -19,6 +19,7 @@ import NuevoProveedor from '../pages/NuevoProveedor';
 import ModificarProveedor from '../pages/ModificarProveedor';
 import NuevoInsumo from '../pages/NuevoInsumo';
 import ModificarInsumo from '../pages/ModificarInsumo';
+import NuevoProducto from '../pages/NuevoProducto';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -72,7 +73,11 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
           component={ModificarInsumo}
         />
         <Route exact path="/produccion/productos" component={ListaProductos} />
-        <Route exact path="/produccion/producto/nuevo" />
+        <Route
+          exact
+          path="/produccion/producto/nuevo"
+          component={NuevoProducto}
+        />
         <Route exact path="/produccion/producto/modificar" />
         <Route exact path="/produccion" component={ListaProduccion} />
         <Route exact path="/costos" component={ListaCostos} />

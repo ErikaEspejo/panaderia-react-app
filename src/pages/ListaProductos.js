@@ -9,13 +9,18 @@ import Container from '../containers/Container';
 import Table from '../containers/Table';
 
 const QueryBar = () => {
+  const history = useHistory();
   return (
     <>
       <input type="text" placeholder="Filtrar por nombre" />
       <input type="text" placeholder="Buscar por NIT" />
-      <Link to="/hallazgo/nuevo">
-        <button className="action-button"> + Nuevo</button>
-      </Link>
+
+      <button
+        className="action-button"
+        onClick={() => history.push('/produccion/producto/nuevo')}
+      >
+        + Nuevo
+      </button>
     </>
   );
 };
@@ -77,19 +82,22 @@ const ListaProductos = () => {
       <Container>
         <QueryBar />
         <Table columns={columns}>
-          {data.map(({ id, product, quantity, supplies, cost, category }) => {
-            return (
-              <Product
-                key={id}
-                id={id}
-                product={product}
-                quantity={quantity}
-                supplies={supplies}
-                cost={cost}
-                category={category}
-              />
-            );
-          })}
+          {data
+            .map(({ id, product, quantity, supplies, cost, category }) => {
+              return (
+                <Product
+                  key={id}
+                  id={id}
+                  product={product}
+                  quantity={quantity}
+                  supplies={supplies}
+                  cost={cost}
+                  category={category}
+                />
+              );
+            })
+            .sort()
+            .reverse()}
         </Table>
       </Container>
     </>

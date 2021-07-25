@@ -34,29 +34,13 @@ export async function updateUser({
     position,
   });
 }
-
-export async function createUser({
-  idType,
-  identificationNumber,
-  name,
-  lastName,
-  username,
-  state,
-  position,
-  email,
-  password,
-}) {
-  const response = await http.post(`/users`, {
-    idType,
-    identificationNumber,
-    name,
-    lastName,
-    username,
-    state,
-    position,
-    email,
-    password,
+*/
+export async function createProduct({ product, cost, supplies, category }) {
+  await http.post(`/products`, {
+    product,
+    cost,
+    supplies,
+    category,
+    quantity: 0,
   });
-  const { data } = response.data;
-  //return formatUser(data);
-} */
+}
