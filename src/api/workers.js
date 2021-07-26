@@ -93,3 +93,7 @@ export async function createWorker({
       totalToSend, */
   });
 }
+
+export async function removeWorker({ id }) {
+  return await http.delete(`/workers`, { data: { id } });
+}

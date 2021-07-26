@@ -8,6 +8,8 @@ import Headers from '../components/Headers';
 import API from '../api';
 import Container from '../containers/Container';
 import Table from '../containers/Table';
+import ElminarTrabajador from './ElminarTrabajador';
+import Modal from '../containers/Modal';
 
 const QueryBar = () => {
   const history = useHistory();
@@ -25,7 +27,8 @@ const QueryBar = () => {
   );
 };
 
-const Supply = ({ worker }) => {
+const Worker = ({ worker }) => {
+  const [show, setShow] = useState(false);
   const history = useHistory();
   return (
     <tr>
@@ -56,7 +59,20 @@ const Supply = ({ worker }) => {
         >
           Modificar
         </button>
-        <button className="action-button">Eliminar</button>
+        <button className="action-button" onClick={() => setShow(true)}>
+          Eliminar
+        </button>
+        <Modal
+          show={show}
+          children={
+            <ElminarTrabajador
+              id={worker.id}
+              name={`${worker.firstName} ${worker.lastName}`}
+              show={show}
+              onClose={() => setShow(false)}
+            />
+          }
+        />
       </td>
     </tr>
   );
@@ -102,7 +118,7 @@ const ListaPersonal = () => {
         <QueryBar />
         <Table columns={columns}>
           {data.map((worker) => {
-            return <Supply key={worker.id} worker={worker} />;
+            return <Worker key={worker.id} worker={worker} />;
           })}
         </Table>
       </Container>
