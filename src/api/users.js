@@ -31,18 +31,21 @@ export async function getUser({ id }) {
 export async function updateUser({
   idType,
   identificationNumber,
-  username,
+  name,
+  lastName,
   email,
+  username,
   password,
-  passwordConfirmation,
+  position,
 }) {
   return await http.put(`/users/${identificationNumber}`, {
     idType,
-    identificationNumber,
-    username,
+    name,
+    lastName,
     email,
+    username,
     password,
-    passwordConfirmation,
+    position,
   });
 }
 

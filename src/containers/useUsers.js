@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import API from '../api';
 
-export default function useCosts({ id }) {
+export default function useUsers({ id }) {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -9,7 +9,7 @@ export default function useCosts({ id }) {
   const loadUser = useCallback(async () => {
     try {
       setIsLoading(true);
-      const data = await API.getCost({ id });
+      const data = await API.getUser({ id });
       if (data) {
         setUser(data);
       }

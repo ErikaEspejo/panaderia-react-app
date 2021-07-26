@@ -8,6 +8,7 @@ import API from '../api';
 import Container from '../containers/Container';
 import Table from '../containers/Table';
 import NuevoUsuario from './NuevoUsuario';
+import ModificarUsuario from './ModificarUsuario';
 import Modal from '../containers/Modal';
 
 const QueryBar = () => {
@@ -28,6 +29,7 @@ const QueryBar = () => {
 };
 
 const User = ({ id, idType, name, lastname, user, email, position, state }) => {
+  const [show, setShow] = useState(false);
   return (
     <tr>
       <td>{idType}</td>
@@ -40,9 +42,19 @@ const User = ({ id, idType, name, lastname, user, email, position, state }) => {
       <td>{position === 'admin' ? 'Portal Administrativo' : 'Ventas'}</td>
       <td>{state}</td>
       <td className="actions">
-        <Link to={`/accesos`}>
-          <button className="action-button">Modificar</button>
-        </Link>
+        <button className="action-button" onClick={() => setShow(true)}>
+          Modificar
+        </button>
+        <Modal
+          show={show}
+          children={
+            <ModificarUsuario
+              show={show}
+              id={id}
+              onClose={() => setShow(false)}
+            />
+          }
+        />
         <button className="action-button">Eliminar</button>
       </td>
     </tr>
@@ -78,8 +90,6 @@ const ListaAccesos = () => {
       console.log(error);
     }
   }
-
-  console.log(data);
 
   useEffect(() => {
     loadList();
