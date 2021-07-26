@@ -72,3 +72,7 @@ export async function createUser({
     passwordConfirmation,
   });
 }
+
+export async function removeUser({ id }) {
+  return await http.delete(`/users`, { data: { identificationNumber: id } });
+}
