@@ -10,12 +10,17 @@ import Container from '../containers/Container';
 import Table from '../containers/Table';
 
 const QueryBar = () => {
+  const history = useHistory();
   return (
     <>
       <input type="text" placeholder="Filtrar por nombre" />
-      <Link to="/hallazgo/nuevo">
-        <button className="action-button"> + Nuevo</button>
-      </Link>
+
+      <button
+        className="action-button"
+        onClick={() => history.push('/personal/nuevo')}
+      >
+        + Nuevo
+      </button>
     </>
   );
 };
@@ -32,7 +37,7 @@ const Supply = ({ worker }) => {
         {worker.firstName} <br />
         {worker.lastName}
       </td>
-      <td>{worker.position}</td>
+      <td>{worker.position === 'admin' ? 'Administrador' : worker.position}</td>
       <td>{format(new Date(worker.entryDate), 'MM/dd/yyyy')}</td>
       <td>
         Horas Diurnas: {worker.totalDayHours} <br />
@@ -42,7 +47,7 @@ const Supply = ({ worker }) => {
       </td>
       <td>$ {worker.totalToSend}</td>
       <td>{format(new Date(worker.retreatDate), 'MM/dd/yyyy')}</td>
-      <td>{worker.state}</td>
+      <td>{worker.state === 'active' ? 'Activo' : 'Inactivo'}</td>
       <td className="actions">
         <Link to={`/accesos`}>
           <button className="action-button">Modificar</button>

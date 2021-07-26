@@ -24,6 +24,7 @@ import ModificarProducto from '../pages/ModificarProducto';
 import NuevaProduccion from '../pages/NuevaProduccion';
 import NuevoCosto from '../pages/NuevoCosto';
 import ModificarCosto from '../pages/ModificarCosto';
+import NuevoTrabajador from '../pages/NuevoTrabajador';
 
 const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
   const showMenu = (collapsed) => {
@@ -93,7 +94,7 @@ const Main = ({ collapsed, handleToggleSidebar, handleCollapsedChange }) => {
         <Route exact path="/costos/nuevo" component={NuevoCosto} />
         <Route exact path="/costos/:id" component={ModificarCosto} />
         <Route exact path="/personal" component={ListaPersonal} />
-        <Route exact path="/personal/nuevo" />
+        <Route exact path="/personal/nuevo" component={NuevoTrabajador} />
         <Route exact path="/personal/modificar" />
         <Route exact path="/ventas" component={ListaVentas} />
         <Route exact path="/accesos" component={ListaAccesos} />

@@ -34,29 +34,51 @@ export async function updateUser({
     position,
   });
 }
-
-export async function createUser({
+*/
+export async function createWorker({
   idType,
-  identificationNumber,
-  name,
+  id,
+  firstName,
   lastName,
-  username,
-  state,
   position,
-  email,
-  password,
+  entryDate,
+  retreatDate,
+  state,
+  totalDayHours,
+  totalNightHours,
+  totalHolidayDayHours,
+  totalHolidayNightHours,
+  salary,
+  /* healthContribution,
+  pension, */
+  risk,
+  /*  arl,
+  compensation,
+  totalCompanyToPay,
+  totalWorkerToPay,
+  totalToSend, */
 }) {
-  const response = await http.post(`/users`, {
+  await http.post(`/workers`, {
     idType,
-    identificationNumber,
-    name,
+    id,
+    firstName,
     lastName,
-    username,
-    state,
     position,
-    email,
-    password,
+    entryDate,
+    retreatDate,
+    state,
+    totalDayHours,
+    totalNightHours,
+    totalHolidayDayHours,
+    totalHolidayNightHours,
+    salary,
+    /* healthContribution,
+      pension, */
+    risk,
+    /*  arl,
+      compensation,
+      totalCompanyToPay,
+      totalWorkerToPay,
+      totalToSend, */
   });
-  const { data } = response.data;
-  //return formatUser(data);
-} */
+}
