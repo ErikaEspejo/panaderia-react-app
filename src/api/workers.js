@@ -6,35 +6,46 @@ export async function listWorkers() {
   return data;
 }
 
-/* export async function getUser({ id }) {
-  const response = await http.get(`/users/${id}`);
+export async function getWorker({ id }) {
+  const response = await http.get(`/workers/${id}`);
   const { data } = response.data;
-  //return formatUser(data);
+  return data;
 }
 
-export async function updateUser({
+export async function updateWorker({
   idType,
-  identificationNumber,
-  name,
+  id,
+  firstName,
   lastName,
-  username,
-  state,
-  email,
-  password,
   position,
+  entryDate,
+  retreatDate,
+  state,
+  totalDayHours,
+  totalNightHours,
+  totalHolidayDayHours,
+  totalHolidayNightHours,
+  salary,
+  risk,
 }) {
-  return await http.put(`/users/${identificationNumber}`, {
+  return await http.put(`/workers/${id}`, {
     idType,
-    name,
+    id,
+    firstName,
     lastName,
-    username,
-    state,
-    email,
-    password,
     position,
+    entryDate,
+    retreatDate,
+    state,
+    totalDayHours,
+    totalNightHours,
+    totalHolidayDayHours,
+    totalHolidayNightHours,
+    salary,
+    risk,
   });
 }
-*/
+
 export async function createWorker({
   idType,
   id,

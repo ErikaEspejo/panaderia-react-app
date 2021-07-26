@@ -26,6 +26,7 @@ const QueryBar = () => {
 };
 
 const Supply = ({ worker }) => {
+  const history = useHistory();
   return (
     <tr>
       <td>
@@ -49,9 +50,12 @@ const Supply = ({ worker }) => {
       <td>{format(new Date(worker.retreatDate), 'MM/dd/yyyy')}</td>
       <td>{worker.state === 'active' ? 'Activo' : 'Inactivo'}</td>
       <td className="actions">
-        <Link to={`/accesos`}>
-          <button className="action-button">Modificar</button>
-        </Link>
+        <button
+          className="action-button"
+          onClick={() => history.push(`/personal/${worker.id}`)}
+        >
+          Modificar
+        </button>
         <button className="action-button">Eliminar</button>
       </td>
     </tr>
