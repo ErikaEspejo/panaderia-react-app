@@ -13,7 +13,7 @@ import {
   workerContributions,
 } from '../services/workerService';
 
-const idTypes = ['RC', 'CC', 'TI', 'CE', 'PP'];
+const idTypes = ['RC', 'CC', 'TI', 'CE', 'PA'];
 const positions = ['Administrador', 'Pincero', 'Mesero', 'Contador'];
 
 const results = (data) => {
@@ -211,6 +211,7 @@ const NuevoTrabajador = () => {
             <input
               type="number"
               name="totalDayHours"
+              defaultValue="0"
               value={input.totalDayHours}
               onInput={(e) =>
                 setInput({ ...input, totalDayHours: parseInt(e.target.value) })
@@ -222,6 +223,7 @@ const NuevoTrabajador = () => {
             <input
               type="number"
               name="totalHolidayDayHours"
+              defaultValue="0"
               value={input.totalHolidayDayHours}
               onInput={(e) =>
                 setInput({
@@ -236,6 +238,7 @@ const NuevoTrabajador = () => {
             <input
               type="number"
               name="totalNightHours"
+              defaultValue="0"
               value={input.totalNightHours}
               onInput={(e) =>
                 setInput({
@@ -250,6 +253,7 @@ const NuevoTrabajador = () => {
             <input
               type="number"
               name="totalHolidayNightHours"
+              defaultValue="0"
               value={input.totalHolidayNightHours}
               onInput={(e) =>
                 setInput({

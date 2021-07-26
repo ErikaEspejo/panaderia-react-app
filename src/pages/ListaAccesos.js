@@ -7,15 +7,22 @@ import Headers from '../components/Headers';
 import API from '../api';
 import Container from '../containers/Container';
 import Table from '../containers/Table';
+import NuevoUsuario from './NuevoUsuario';
+import Modal from '../containers/Modal';
 
 const QueryBar = () => {
+  const [show, setShow] = useState(false);
   return (
     <>
       <input type="text" placeholder="Filtrar por nombre" />
       <input type="text" placeholder="Buscar por ID" />
-      <Link to="/hallazgo/nuevo">
-        <button className="action-button"> + Nuevo</button>
-      </Link>
+      <button className="action-button" onClick={() => setShow(true)}>
+        + Nuevo
+      </button>
+      <Modal
+        show={show}
+        children={<NuevoUsuario show={show} onClose={() => setShow(false)} />}
+      />
     </>
   );
 };
@@ -23,8 +30,8 @@ const QueryBar = () => {
 const User = ({ id, idType, name, lastname, user, email, position, state }) => {
   return (
     <tr>
-      <td>{id}</td>
       <td>{idType}</td>
+      <td>{id}</td>
       <td>{name}</td>
       <td>{lastname}</td>
       <td>{user}</td>
@@ -44,8 +51,8 @@ const User = ({ id, idType, name, lastname, user, email, position, state }) => {
 
 const ListaAccesos = () => {
   const columns = [
-    'ID',
     'Tipo',
+    'ID',
     'Nombre',
     'Apellido',
     'Usuario',
@@ -71,6 +78,8 @@ const ListaAccesos = () => {
       console.log(error);
     }
   }
+
+  console.log(data);
 
   useEffect(() => {
     loadList();

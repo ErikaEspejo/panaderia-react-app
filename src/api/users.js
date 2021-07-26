@@ -2,18 +2,6 @@ import http from '../utils/http';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-function formatUser(user) {
-  const dateCreatedAt = `${format(new Date(user.createdAt), 'MMMM', {
-    locale: es,
-  })} de ${format(new Date(user.createdAt), 'yyyy')}`;
-
-  return {
-    ...user,
-    id: user.identificationNumber,
-    dateCreatedAt,
-  };
-}
-
 export async function login({ username = '', password = '' }) {
   const response = await http.post(`/users/login`, {
     username,
@@ -34,57 +22,50 @@ export async function listUsers() {
   return data;
 }
 
-/* export async function getUser({ id }) {
+export async function getUser({ id }) {
   const response = await http.get(`/users/${id}`);
   const { data } = response.data;
-  //return formatUser(data);
+  return data;
 }
 
 export async function updateUser({
   idType,
   identificationNumber,
-  name,
-  lastName,
   username,
-  state,
   email,
   password,
-  position,
+  passwordConfirmation,
 }) {
   return await http.put(`/users/${identificationNumber}`, {
     idType,
-    name,
-    lastName,
+    identificationNumber,
     username,
-    state,
     email,
     password,
-    position,
+    passwordConfirmation,
   });
 }
 
 export async function createUser({
   idType,
   identificationNumber,
+  username,
+  email,
   name,
   lastName,
-  username,
-  state,
   position,
-  email,
   password,
+  passwordConfirmation,
 }) {
-  const response = await http.post(`/users`, {
+  await http.post(`/users`, {
     idType,
     identificationNumber,
+    username,
+    email,
     name,
     lastName,
-    username,
-    state,
     position,
-    email,
     password,
+    passwordConfirmation,
   });
-  const { data } = response.data;
-  //return formatUser(data);
-} */
+}
