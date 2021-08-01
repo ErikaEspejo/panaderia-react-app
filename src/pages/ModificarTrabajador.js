@@ -10,6 +10,8 @@ import useWorker from '../containers/useWorker';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
+import Modal from '../containers/Modal';
+import NuevoTipo from './NuevoTipo';
 
 import {
   salaryCalculation,
@@ -17,8 +19,7 @@ import {
   workerContributions,
 } from '../services/workerService';
 
-const idTypes = ['RC', 'CC', 'TI', 'CE', 'PP'];
-const positions = ['Administrador', 'Pincero', 'Mesero', 'Contador'];
+const idTypes = ['RC', 'CC', 'TI', 'CE', 'PA'];
 
 const results = (data) => {
   const workerSalary = salaryCalculation(
@@ -34,7 +35,8 @@ const results = (data) => {
   return { workerSalary, companyPayments, workerPayments };
 };
 
-const SalaryResults = ({ data }) => {
+const SalaryResults = ({ data, info }) => {
+  // console.log('data', data, 'info', info);
   const { workerSalary, companyPayments, workerPayments } = results(data);
   return (
     <>
@@ -71,14 +73,40 @@ const ModificarTrabajador = () => {
   const [error, setError] = useState('');
   const [input, setInput] = useState({});
   const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const { worker, entryDate, retreatDate } = useWorker({ id });
+
+  let workerData = worker !== null ? worker : {};
+
+  console.log(input);
 
   const calcularSalario = (event) => {
     event.preventDefault();
-    console.log(input);
     setShow(true);
   };
 
-  const { worker, entryDate, retreatDate } = useWorker({ id });
+  const handleNewType = (e) => {
+    e.preventDefault();
+    setShowModal(true);
+  };
+
+  async function loadList() {
+    try {
+      const data = await API.listPositionTypes();
+      if (data) {
+        setData(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loadList();
+    setInput(workerData);
+  }, [workerData]);
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -105,18 +133,11 @@ const ModificarTrabajador = () => {
       position.value &&
       entryDate.value &&
       state.value &&
-      totalDayHours.value &&
-      totalNightHours.value &&
-      totalHolidayDayHours.value &&
-      totalHolidayNightHours.value &&
       salary.value &&
       risk.value
     ) {
-      /* const dateParsed = new Date(date.value).toLocaleDateString('en-US', {
-        timeZone: 'Europe/Madrid',
-      }); */
-      const { workerSalary, companyPayments, workerPayments } = results(input);
       try {
+        const { workerSalary } = results(input);
         setError('');
         await API.updateWorker({
           idType: idType.value,
@@ -126,14 +147,16 @@ const ModificarTrabajador = () => {
           position:
             position.value === 'Administrador' ? 'admin' : position.value,
           entryDate: entryDate.value,
-          retreatDate: retreatDate.value ? retreatDate.value : '10-10-2999',
+          retreatDate: retreatDate.value || '10-10-2999',
           state: state.value,
-          totalDayHours: input.totalDayHours,
-          totalNightHours: input.totalNightHours,
-          totalHolidayDayHours: input.totalHolidayDayHours,
-          totalHolidayNightHours: input.totalHolidayNightHours,
-          salary: workerSalary,
-          risk: risk.value,
+          totalDayHours: input.totalDayHours || worker.totalDayHours,
+          totalNightHours: input.totalNightHours || worker.totalNightHours,
+          totalHolidayDayHours:
+            input.totalHolidayDayHours || worker.totalHolidayDayHours,
+          totalHolidayNightHours:
+            input.totalHolidayNightHours || worker.totalHolidayNightHours,
+          salary: workerSalary || worker.salary,
+          risk: risk.value || worker.risk,
         });
 
         history.push('/personal');
@@ -190,12 +213,23 @@ const ModificarTrabajador = () => {
                   ? 'Administrador'
                   : worker.position}
               </option>
-              {positions.map((el, index) => {
-                return <option key={index}>{el}</option>;
+              {data.map((el, index) => {
+                return <option key={index}>{el.type}</option>;
               })}
             </select>
           </label>
-          <button>Nuevo</button>
+          <button onClick={handleNewType}>Nuevo</button>
+          <Modal
+            show={showModal}
+            children={
+              <NuevoTipo
+                tipo="Cargo"
+                action={API.createPositionTypes}
+                show={showModal}
+                onClose={() => setShowModal(false)}
+              />
+            }
+          />
           <label htmlFor="">
             Fecha de Ingreso
             <input type="date" name="entryDate" defaultValue={entryDate} />
