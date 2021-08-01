@@ -20,16 +20,85 @@ const categories = [
   'Articulos Eventos',
 ];
 
+const units = ['Kg', 'g', 'Lt', 'Lb'];
+
+const original = {
+  option: [],
+  value: '',
+  quantity: '',
+  units: '',
+};
+
+const suppliesList = [Object.assign({}, original)];
+
 const ModificarProveedor = () => {
   const { id } = useParams();
+  const { product, supplies } = useProducts({ id });
   const history = useHistory();
-  const [error, setError] = useState('');
 
-  const { product } = useProducts({ id });
+  const [error, setError] = useState('');
+  const [data, setData] = useState([]);
+  const [modifySupplies, setModifySupplies] = useState(false);
+  const [totalSupplies, setTotalSupplies] = useState(suppliesList);
+  const [localSupplies, setLocalSupplies] = useState(null);
+
+  let supply = supplies.length > 0 ? supplies : null;
+
+  async function loadList() {
+    try {
+      const data = await API.listSupplies();
+      if (data) {
+        setData(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+    setTotalSupplies([...totalSupplies, Object.assign({}, original)]);
+  };
+  const handleModify = (e) => {
+    e.preventDefault();
+    setModifySupplies(true);
+  };
+  const handleUnshow = (e) => {
+    e.preventDefault();
+    setModifySupplies(false);
+    setTotalSupplies(suppliesList);
+  };
+  const handleRemove = (index) => {
+    setLocalSupplies(localSupplies.filter((el, id) => id !== index));
+  };
+
+  useEffect(() => {
+    loadList();
+    setLocalSupplies(supply);
+  }, [supply]);
 
   async function onSubmit(event) {
     event.preventDefault();
-    const { product, cost, supplies, category } = event.target.elements;
+
+    const arraySupplies = [];
+    localSupplies.forEach((el) => {
+      const string = `${el.value ? el.value : el.supply},${el.quantity},${
+        el.units
+      }`;
+      arraySupplies.push(string);
+    });
+
+    if (modifySupplies) {
+      totalSupplies.forEach((el) => {
+        const string = `${el.value},${el.quantity},${el.units}`;
+        arraySupplies.push(string);
+      });
+    }
+
+    console.log('supplies', arraySupplies);
+
+    const { product, cost, category } = event.target.elements;
 
     if (product.value && cost.value && category.value) {
       try {
@@ -38,7 +107,7 @@ const ModificarProveedor = () => {
           id,
           product: product.value,
           category: category.value,
-          supplies: supplies.value,
+          supplies: arraySupplies.join(';'),
           cost: parseFloat(cost.value),
         });
         history.push('/produccion/productos');
@@ -52,6 +121,7 @@ const ModificarProveedor = () => {
   }
 
   if (!product) return null;
+  if (!localSupplies) return null;
 
   return (
     <>
@@ -90,7 +160,117 @@ const ModificarProveedor = () => {
 
           <h3>Insumos requeridos</h3>
           <hr />
-          <textarea name="supplies" defaultValue={product.supplies}></textarea>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {localSupplies.length > 0
+              ? localSupplies.map((el, index) => {
+                  return (
+                    <div key={index}>
+                      <select
+                        name={index}
+                        onChange={(e) => (el.value = e.target.value)}
+                      >
+                        <option value="" selected disabled>
+                          {el.supply}
+                        </option>
+                        {data.map((el, index) => {
+                          return (
+                            <option key={index} value={el.name}>
+                              {el.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <input
+                        required
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        defaultValue={el.quantity}
+                        onChange={(e) => (el.quantity = e.target.value)}
+                      />
+                      <select
+                        name={index}
+                        onChange={(e) => (el.units = e.target.value)}
+                      >
+                        <option value="" selected disabled>
+                          {el.units}
+                        </option>
+                        {units.map((el, index) => {
+                          return (
+                            <option key={index} value={el}>
+                              {el}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleRemove(index);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  );
+                })
+              : ''}
+          </div>
+          <div>
+            {!modifySupplies ? (
+              <button onClick={handleModify}>Crear mas insumos</button>
+            ) : null}
+            {modifySupplies ? (
+              <>
+                <button onClick={handleAdd}>Agregar</button>
+                {!!totalSupplies &&
+                  totalSupplies.map((el, index) => {
+                    return (
+                      <>
+                        <select
+                          required
+                          name={index}
+                          onChange={(e) => (el.value = e.target.value)}
+                        >
+                          <option value="">Seleccione el insumo</option>
+                          {data.map((el, index) => {
+                            return (
+                              <option key={index} value={el.name}>
+                                {el.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                        <input
+                          required
+                          type="number"
+                          min="0"
+                          step="0.01"
+                          onChange={(e) => (el.quantity = e.target.value)}
+                        />
+                        <select
+                          required
+                          name={index}
+                          onChange={(e) => (el.units = e.target.value)}
+                        >
+                          <option value="" selected disabled>
+                            Un.
+                          </option>
+                          {units.map((el, index) => {
+                            return (
+                              <option key={index} value={el}>
+                                {el}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </>
+                    );
+                  })}
+                <button onClick={handleUnshow}>Cancelar</button>
+              </>
+            ) : null}
+          </div>
 
           <button type="submit">
             {' '}

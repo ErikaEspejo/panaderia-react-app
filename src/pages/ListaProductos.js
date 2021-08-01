@@ -30,13 +30,31 @@ const QueryBar = () => {
 const Product = ({ id, product, quantity, supplies, cost, category }) => {
   const history = useHistory();
   const [show, setShow] = useState(false);
+  const suppliesArray = supplies.split(';');
+  const suppliesObj = suppliesArray.map((el) => {
+    const splitted = el.split(',');
+    return {
+      supply: splitted[0],
+      quantity: splitted[1],
+      units: splitted[2],
+    };
+  });
+
   return (
     <tr>
       <td>{id}</td>
       <td>{product}</td>
       <td>$ {cost}</td>
       <td>{quantity} un</td>
-      <td>{supplies}</td>
+      <td>
+        {suppliesObj.map((el, index) => {
+          return (
+            <p key={index}>
+              {el.supply} - {el.quantity} {el.units}
+            </p>
+          );
+        })}
+      </td>
       <td>{category}</td>
 
       <td className="actions">

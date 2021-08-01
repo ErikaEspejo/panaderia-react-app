@@ -16,14 +16,53 @@ const categories = [
   'Bebidas Calientes',
   'Articulos Eventos',
 ];
+const units = ['Kg', 'g', 'Lt', 'Lb'];
 
+const original = {
+  option: [],
+  value: '',
+  quantity: '',
+  units: '',
+};
+
+const supplies = [Object.assign({}, original)];
 const NuevoProducto = () => {
   const history = useHistory();
+  const [data, setData] = useState([]);
   const [error, setError] = useState('');
+  const [totalSupplies, setTotalSupplies] = useState(supplies);
+
+  async function loadList() {
+    try {
+      const data = await API.listSupplies();
+      if (data) {
+        setData(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loadList();
+  }, []);
+
+  console.log(data);
+  const handleAdd = (e) => {
+    e.preventDefault();
+    setTotalSupplies([...totalSupplies, Object.assign({}, original)]);
+  };
 
   async function onSubmit(event) {
     event.preventDefault();
-    const { product, cost, supplies, category } = event.target.elements;
+    const { product, cost, category } = event.target.elements;
+
+    const arraySupplies = [];
+    totalSupplies.forEach((el) => {
+      const string = `${el.value},${el.quantity},${el.units}`;
+      arraySupplies.push(string);
+    });
 
     if (product.value && cost.value && category.value) {
       try {
@@ -31,7 +70,7 @@ const NuevoProducto = () => {
         await API.createProduct({
           product: product.value,
           category: category.value,
-          supplies: supplies.value,
+          supplies: arraySupplies.join(';'),
           cost: parseFloat(cost.value),
         });
         history.push('/produccion/productos');
@@ -72,7 +111,57 @@ const NuevoProducto = () => {
 
           <h3>Insumos requeridos</h3>
           <hr />
-          <textarea name="supplies"></textarea>
+          <div>
+            <button onClick={handleAdd}>Agregar</button>
+            {!!totalSupplies &&
+              totalSupplies.map((el, index) => {
+                return (
+                  <>
+                    <select
+                      required
+                      name={index}
+                      onChange={(e) => (el.value = e.target.value)}
+                    >
+                      <option value="" selected disabled>
+                        Seleccione el insumo
+                      </option>
+                      {data.map((el, index) => {
+                        return (
+                          <option key={index} value={el.name}>
+                            {el.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <input
+                      required
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      onChange={(e) => (el.quantity = e.target.value)}
+                    />
+                    <select
+                      required
+                      name={index}
+                      onChange={(e) => (el.units = e.target.value)}
+                    >
+                      <option value="" selected disabled>
+                        Un.
+                      </option>
+                      {units.map((el, index) => {
+                        return (
+                          <option key={index} value={el}>
+                            {el}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </>
+                );
+              })}
+          </div>
+
+          {/* <textarea name="supplies"></textarea> */}
 
           <button type="submit">
             {' '}

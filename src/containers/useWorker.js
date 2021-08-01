@@ -3,6 +3,7 @@ import API from '../api';
 
 export default function useWorker({ id }) {
   const [worker, setWorker] = useState(null);
+
   const [entryDate, setEntryDate] = useState('');
   const [retreatDate, setRetreatDate] = useState('');
   const [error, setError] = useState('');
@@ -14,6 +15,7 @@ export default function useWorker({ id }) {
       const data = await API.getWorker({ id });
       if (data) {
         setWorker(data);
+
         setEntryDate(data.entryDate.substring(0, 10));
         setRetreatDate(data.retreatDate.substring(0, 10));
       }
