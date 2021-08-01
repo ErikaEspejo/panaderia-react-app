@@ -13,6 +13,7 @@ import { HiBadgeCheck, HiShoppingCart } from 'react-icons/hi';
 import { FaTruck, FaUserTie, FaChartLine, FaUsersCog } from 'react-icons/fa';
 import { RiCoinsFill } from 'react-icons/ri';
 import { FiLogOut } from 'react-icons/fi';
+import { MdLocalOffer } from 'react-icons/md';
 import sidebarBg from './assets/bg1.jpg';
 
 import { isAuthenticated, clearSession } from '../utils/auth';
@@ -145,6 +146,9 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
 
       <SidebarFooter>
         <Menu iconShape="circle">
+          <MenuItem icon={<MdLocalOffer />}>
+            <Link to="/sales">Ir a panel de Ventas</Link>
+          </MenuItem>
           <MenuItem
             icon={<FiLogOut />}
             onClick={() => {

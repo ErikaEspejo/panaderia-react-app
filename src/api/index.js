@@ -8,6 +8,7 @@ import * as Workers from './workers';
 import * as Sales from './sales';
 import * as Quality from './quality';
 import * as Others from './others';
+import * as Orders from './orders';
 
 const API = {
   ...Users,
@@ -20,6 +21,7 @@ const API = {
   ...Sales,
   ...Quality,
   ...Others,
+  ...Orders,
 };
 
 export default API;

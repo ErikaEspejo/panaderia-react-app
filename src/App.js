@@ -13,10 +13,10 @@ function App() {
     <React.StrictMode>
       <Router>
         <Switch>
-          <Route exact path="/login">
+          <Route path="/login">
             <Login />
           </Route>
-          <ProtectedRoute exact path="/sales">
+          <ProtectedRoute path="/sales">
             <Sales />
           </ProtectedRoute>
           <ProtectedRoute path="/">
