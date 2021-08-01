@@ -5,7 +5,7 @@ import ProtectedRoute from './containers/ProtectedRoute';
 import Layout from './containers/Layout';
 
 import Login from './pages/Login';
-import Sales from './pages/Sales';
+import Sales from './containers/Sales';
 import './styles/App.scss';
 
 function App() {
@@ -13,14 +13,14 @@ function App() {
     <React.StrictMode>
       <Router>
         <Switch>
-          <Route path="/login">
+          <Route exact path="/login">
             <Login />
           </Route>
+          <ProtectedRoute exact path="/sales">
+            <Sales />
+          </ProtectedRoute>
           <ProtectedRoute path="/">
             <Layout />
-          </ProtectedRoute>
-          <ProtectedRoute path="/sales">
-            <Sales />
           </ProtectedRoute>
         </Switch>
       </Router>
