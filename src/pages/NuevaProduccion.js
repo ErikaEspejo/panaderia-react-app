@@ -8,31 +8,24 @@ import Alert from '../components/Alert';
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
 
-let totalProducts = [];
-let products = [];
-
-const NuevoProveedor = () => {
+const original = {
+  option: [],
+  value: '',
+  quantity: '',
+  units: '',
+};
+const products = [Object.assign({}, original)];
+const NuevaProduccion = () => {
   const history = useHistory();
-  const [product, setProduct] = useState([]);
+
+  const [data, setData] = useState([]);
   const [error, setError] = useState('');
-  const [input, setInput] = useState('');
-  const [inputQuantity, setInputQuantity] = useState('');
-
-  const agregarProducto = (event) => {
-    event.preventDefault();
-    totalProducts.push({
-      product: input.substring(4),
-      quantity: inputQuantity,
-    });
-    products.push(`${input.substring(0, 1)},${inputQuantity}`);
-    console.log(totalProducts, products);
-  };
-
+  const [totalProducts, setTotalProducts] = useState(products);
   async function loadList() {
     try {
       const data = await API.listProducts();
       if (data) {
-        setProduct(data);
+        setData(data);
       }
     } catch (error) {
       setError(error.message);
@@ -44,12 +37,22 @@ const NuevoProveedor = () => {
     loadList();
   }, []);
 
+  const handleAdd = (e) => {
+    e.preventDefault();
+    setTotalProducts([...totalProducts, Object.assign({}, original)]);
+  };
+
   async function onSubmit(event) {
     event.preventDefault();
     const { date } = event.target.elements;
 
-    const production = products.join(';');
+    const arrayProducts = [];
+    totalProducts.forEach((el) => {
+      const string = `${el.value.substring(0, 1)},${el.quantity}`;
+      arrayProducts.push(string);
+    });
 
+    const production = arrayProducts.join(';');
     if (date.value && production) {
       try {
         setError('');
@@ -57,8 +60,7 @@ const NuevoProveedor = () => {
           date: date.value,
           production,
         });
-        totalProducts = [];
-        products = [];
+
         history.push('/produccion');
       } catch (error) {
         console.log(error);
@@ -83,43 +85,44 @@ const NuevoProveedor = () => {
             <input type="date" name="date" />
           </label>
           <h3>Productos</h3>
-          <button onClick={agregarProducto}>Agregar producto</button>
-          <select value={input} onInput={(e) => setInput(e.target.value)}>
-            <option selected>Seleccione el producto</option>
-            {product.map((element, index) => {
+          <button onClick={handleAdd}>Agregar</button>
+          {!!totalProducts &&
+            totalProducts.map((el, index) => {
               return (
-                <option key={index}>
-                  {element.id} - {element.product}
-                </option>
+                <>
+                  <select
+                    required
+                    name={index}
+                    onChange={(e) => (el.value = e.target.value)}
+                  >
+                    <option value="" selected disabled>
+                      Seleccione el product
+                    </option>
+                    {data.map((el, index) => {
+                      return (
+                        <option key={index} value={`${el.id} - ${el.product}`}>
+                          {el.id} - {el.product}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <input
+                    required
+                    type="number"
+                    min="0"
+                    onChange={(e) => (el.quantity = e.target.value)}
+                  />
+                </>
               );
             })}
-          </select>
-          <label htmlFor="">
-            Cantidad
-            <input
-              type="number"
-              value={inputQuantity}
-              onInput={(e) => setInputQuantity(e.target.value)}
-            />
-          </label>
-          <ul>
-            {totalProducts.map((el, index) => {
-              return (
-                <li key={index}>
-                  {el.product} - {el.quantity} unidades
-                </li>
-              );
-            })}
-          </ul>
 
           <button type="submit">
             {' '}
-            <FaSave /> Guardar Proveedor
+            <FaSave />
+            Crear Producción
           </button>
           <button
             onClick={() => {
-              totalProducts = [];
-              products = [];
               history.push('/produccion');
             }}
           >
@@ -131,4 +134,4 @@ const NuevoProveedor = () => {
   );
 };
 
-export default NuevoProveedor;
+export default NuevaProduccion;
