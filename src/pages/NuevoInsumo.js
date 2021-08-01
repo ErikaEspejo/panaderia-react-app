@@ -7,20 +7,40 @@ import Alert from '../components/Alert';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
+import Modal from '../containers/Modal';
+import NuevoTipo from './NuevoTipo';
 
-const type = ['Harina de trigo', 'Azucar', 'Especias'];
 const units = ['Kg', 'Lb', 'g', 'Lt'];
 
 const NuevoInsumo = () => {
   const history = useHistory();
   const [error, setError] = useState('');
   const [provider, setProvider] = useState([]);
+  const [show, setShow] = useState(false);
+  const [data, setData] = useState([]);
 
   async function loadProviders() {
     try {
       const data = await API.listProviders();
       if (data) {
         setProvider(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+
+  const handleNewType = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
+
+  async function loadList() {
+    try {
+      const data = await API.listSupplyTypes();
+      if (data) {
+        setData(data);
       }
     } catch (error) {
       setError(error.message);
@@ -67,6 +87,7 @@ const NuevoInsumo = () => {
 
   useEffect(() => {
     loadProviders();
+    loadList();
   }, []);
 
   return (
@@ -83,11 +104,23 @@ const NuevoInsumo = () => {
           <label htmlFor="">
             Tipo de Insumo
             <select name="type">
-              {type.map((element, index) => {
-                return <option key={index}>{element}</option>;
+              {data.map((element, index) => {
+                return <option key={index}>{element.type}</option>;
               })}
             </select>
           </label>
+          <button onClick={handleNewType}>Nuevo</button>
+          <Modal
+            show={show}
+            children={
+              <NuevoTipo
+                tipo="Insumo"
+                action={API.createSupplyTypes}
+                show={show}
+                onClose={() => setShow(false)}
+              />
+            }
+          />
           <label htmlFor="">
             Cantidad
             <input type="number" step="0.01" name="quantity" />

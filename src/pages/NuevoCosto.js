@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosCreate } from 'react-icons/io';
 import { FaSave } from 'react-icons/fa';
 import API from '../api';
@@ -7,12 +7,35 @@ import Alert from '../components/Alert';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
-
-const costTypes = ['Activos', 'Operativos'];
+import Modal from '../containers/Modal';
+import NuevoTipo from './NuevoTipo';
 
 const NuevoCosto = () => {
   const history = useHistory();
   const [error, setError] = useState('');
+  const [show, setShow] = useState(false);
+  const [data, setData] = useState([]);
+
+  const handleNewType = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
+
+  async function loadList() {
+    try {
+      const data = await API.listCostTypes();
+      if (data) {
+        setData(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loadList();
+  }, []);
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -66,12 +89,23 @@ const NuevoCosto = () => {
           <label htmlFor="">
             Tipo de costo
             <select name="costType">
-              {costTypes.map((el, index) => {
-                return <option key={index}>{el}</option>;
+              {data.map((el, index) => {
+                return <option key={index}>{el.type}</option>;
               })}
             </select>
           </label>
-          <button>Nuevo</button>
+          <button onClick={handleNewType}>Nuevo</button>
+          <Modal
+            show={show}
+            children={
+              <NuevoTipo
+                tipo="Costo"
+                action={API.createCostTypes}
+                show={show}
+                onClose={() => setShow(false)}
+              />
+            }
+          />
           <label htmlFor="">
             Valor de Costo
             <input type="number" step="0.01" name="costValue" />

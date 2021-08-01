@@ -10,16 +10,38 @@ import useCosts from '../containers/useCosts';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
-
-const costTypes = ['Activos', 'Operativos'];
+import Modal from '../containers/Modal';
+import NuevoTipo from './NuevoTipo';
 
 const ModificarCosto = () => {
   const { id } = useParams();
   const history = useHistory();
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
+  const [show, setShow] = useState(false);
 
   const { cost, date } = useCosts({ id });
+
+  const handleNewType = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
+
+  async function loadList() {
+    try {
+      const data = await API.listCostTypes();
+      if (data) {
+        setData(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loadList();
+  }, []);
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -75,12 +97,23 @@ const ModificarCosto = () => {
               <option selected disabled>
                 {cost.costType}
               </option>
-              {costTypes.map((el, index) => {
-                return <option key={index}>{el}</option>;
+              {data.map((el, index) => {
+                return <option key={index}>{el.type}</option>;
               })}
             </select>
           </label>
-          <button>Nuevo</button>
+          <button onClick={handleNewType}>Nuevo</button>
+          <Modal
+            show={show}
+            children={
+              <NuevoTipo
+                tipo="Costo"
+                action={API.createCostTypes}
+                show={show}
+                onClose={() => setShow(false)}
+              />
+            }
+          />
           <label htmlFor="">
             Valor de Costo
             <input

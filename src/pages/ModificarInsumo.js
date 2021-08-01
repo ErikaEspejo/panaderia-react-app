@@ -7,19 +7,21 @@ import { useHistory, useParams } from 'react-router-dom';
 import Alert from '../components/Alert';
 import { formatISO } from 'date-fns';
 import useSupplies from '../containers/useSupplies';
+import Modal from '../containers/Modal';
+import NuevoTipo from './NuevoTipo';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
 
-const type = ['Harina de trigo', 'Azucar', 'Especias'];
 const units = ['Kg', 'Lb', 'g', 'Lt'];
 
 const ModificarInsumo = () => {
   const { id } = useParams();
   const history = useHistory();
   const [provider, setProvider] = useState([]);
-  const [provFilter, setProvFilter] = useState([]);
   const [error, setError] = useState('');
+  const [show, setShow] = useState(false);
+  const [data, setData] = useState([]);
 
   const { supply, providerId } = useSupplies({ id });
 
@@ -28,6 +30,22 @@ const ModificarInsumo = () => {
       const data = await API.listProviders();
       if (data) {
         setProvider(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+  const handleNewType = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
+
+  async function loadList() {
+    try {
+      const data = await API.listSupplyTypes();
+      if (data) {
+        setData(data);
       }
     } catch (error) {
       setError(error.message);
@@ -73,6 +91,7 @@ const ModificarInsumo = () => {
 
   useEffect(() => {
     loadProviders();
+    loadList();
   }, []);
 
   if (!supply) return null;
@@ -94,11 +113,23 @@ const ModificarInsumo = () => {
           <label htmlFor="">
             Tipo de Insumo
             <select name="type">
-              {type.map((element, index) => {
-                return <option key={index}>{element}</option>;
+              {data.map((element, index) => {
+                return <option key={index}>{element.type}</option>;
               })}
             </select>
           </label>
+          <button onClick={handleNewType}>Nuevo</button>
+          <Modal
+            show={show}
+            children={
+              <NuevoTipo
+                tipo="Insumo"
+                action={API.createSupplyTypes}
+                show={show}
+                onClose={() => setShow(false)}
+              />
+            }
+          />
           <label htmlFor="">
             Cantidad
             <input

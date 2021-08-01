@@ -12,9 +12,10 @@ import {
   companyContributions,
   workerContributions,
 } from '../services/workerService';
+import Modal from '../containers/Modal';
+import NuevoTipo from './NuevoTipo';
 
 const idTypes = ['RC', 'CC', 'TI', 'CE', 'PA'];
-const positions = ['Administrador', 'Pincero', 'Mesero', 'Contador'];
 
 const results = (data) => {
   const workerSalary = salaryCalculation(
@@ -66,10 +67,34 @@ const NuevoTrabajador = () => {
   const [error, setError] = useState('');
   const [input, setInput] = useState({});
   const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState([]);
+
   const calcularSalario = (event) => {
     event.preventDefault();
     setShow(true);
   };
+
+  const handleNewType = (e) => {
+    e.preventDefault();
+    setShowModal(true);
+  };
+
+  async function loadList() {
+    try {
+      const data = await API.listPositionTypes();
+      if (data) {
+        setData(data);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loadList();
+  }, []);
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -181,12 +206,23 @@ const NuevoTrabajador = () => {
               <option selected disabled>
                 Seleccione el cargo
               </option>
-              {positions.map((el, index) => {
-                return <option key={index}>{el}</option>;
+              {data.map((el, index) => {
+                return <option key={index}>{el.type}</option>;
               })}
             </select>
           </label>
-          <button>Nuevo</button>
+          <button onClick={handleNewType}>Nuevo</button>
+          <Modal
+            show={showModal}
+            children={
+              <NuevoTipo
+                tipo="Cargo"
+                action={API.createPositionTypes}
+                show={showModal}
+                onClose={() => setShowModal(false)}
+              />
+            }
+          />
           <label htmlFor="">
             Fecha de Ingreso
             <input type="date" name="entryDate" />
@@ -281,6 +317,7 @@ const NuevoTrabajador = () => {
           <label htmlFor="">
             Riesgo
             <input
+              defaultValue="1"
               type="number"
               name="risk"
               value={input.risk}
