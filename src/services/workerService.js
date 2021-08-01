@@ -1,11 +1,9 @@
-import { GiConsoleController } from 'react-icons/gi';
-
 export const salaryCalculation = (
-  salary,
-  dayHours,
-  nightHours,
-  holidayDayHours,
-  holidayNightHours
+  salary = 0,
+  dayHours = 0,
+  nightHours = 0,
+  holidayDayHours = 0,
+  holidayNightHours = 0
 ) => {
   const hourValue = 908526 / (30 * 8);
   const hourRate = {
@@ -24,7 +22,7 @@ export const salaryCalculation = (
   );
 };
 
-export const companyContributions = (salary, risk) => {
+export const companyContributions = (salary = 0, risk = 1) => {
   const arlRate = { 1: 0.00522, 2: 0.01044, 3: 0.02436, 4: 0.0435, 5: 0.0696 };
   return {
     health: salary * 0.085,
@@ -34,7 +32,7 @@ export const companyContributions = (salary, risk) => {
   };
 };
 
-export const workerContributions = (salary) => {
+export const workerContributions = (salary = 0) => {
   return {
     health: salary * 0.04,
     pension: salary * 0.04,
