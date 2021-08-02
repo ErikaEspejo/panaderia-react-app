@@ -44,10 +44,6 @@ const Supply = ({ id, buyer, order, totalValue, waiter, createdAt }) => {
       </td>
 
       <td>$ {order.reduce((sum, el) => sum + el.quantity * el.cost, 0)}</td>
-
-      <td className="actions">
-        <button className="action-button">Eliminar</button>
-      </td>
     </tr>
   );
 };
@@ -60,7 +56,6 @@ const ListaVentas = () => {
     'Fecha',
     'CP - P - VU - VTP',
     'Valor Venta',
-    '',
   ];
 
   const [data, setData] = useState([]);

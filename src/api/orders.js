@@ -7,10 +7,15 @@ export async function listOrders() {
   return data;
 }
 
-export async function createOrder({ buyer, order, totalValue }) {
+export async function createOrder({ buyer, order, totalValue, table }) {
   await http.post(`/orders`, {
     buyer,
     order,
     totalValue,
+    table,
   });
+}
+
+export async function removeOrder({ id }) {
+  return await http.delete(`/orders`, { data: { id } });
 }

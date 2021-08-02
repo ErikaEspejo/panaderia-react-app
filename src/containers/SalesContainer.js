@@ -9,8 +9,8 @@ export default function SalesContainer() {
     <>
       <Switch>
         <Route exact path="/sales/new" component={NuevoPedido} />
-        <Route exact path="/hallazgo/:id" component={PedidosActivos} />
-        <Route exact path="/hallazgo" component={HistorialPedidos} />
+        <Route exact path="/sales/active" component={PedidosActivos} />
+        <Route exact path="/sales/history" component={HistorialPedidos} />
       </Switch>
     </>
   );

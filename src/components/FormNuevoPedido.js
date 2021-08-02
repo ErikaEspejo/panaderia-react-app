@@ -35,7 +35,7 @@ export default function FormNuevoPedido({ onClose, id }) {
     const arrayProducts = [];
     totalProducts.forEach((el) => {
       const string = `${el.id},${parseInt(el.quantity)},${el.cost},${
-        el.quantity * el.cost
+        parseInt(el.quantity) * el.cost
       }`;
       arrayProducts.push(string);
     });
@@ -52,6 +52,7 @@ export default function FormNuevoPedido({ onClose, id }) {
           buyer: `${idBuyer.value} - ${buyer.value}`,
           order: arrayProducts.join(';'),
           totalValue,
+          table: id,
         });
         setSuccess('El pedido ha sido generado con exito');
         setTimeout(() => {
