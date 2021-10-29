@@ -32,16 +32,20 @@ export default function NuevoTipo(props) {
   };
 
   return (
-    <div>
+    <div className="new-type">
       {error && <Alert severity="error" message={error} />}
       {success && <Alert severity="success" message={success} />}
       <h3>Agregar Nuevo Tipo de {props.tipo}</h3>
 
       <input type="text" name="type" onChange={(e) => setType(e.target)} />
-      <button type="submit" onClick={onSubmit}>
-        Guardar Nuevo {props.tipo}
-      </button>
-      <button onClick={props.onClose}>Calcelar</button>
+      <div className="buttons">
+        <button type="submit" onClick={onSubmit} className="action-button">
+          Guardar Nuevo {props.tipo}
+        </button>
+        <button onClick={props.onClose} className="action-button">
+          Cancelar
+        </button>
+      </div>
     </div>
   );
 }

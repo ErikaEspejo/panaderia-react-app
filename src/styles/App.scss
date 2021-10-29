@@ -41,8 +41,8 @@ body {
   }
 
   .action-button {
-    width: 80px;
     padding-block: 5px;
+    padding-inline: 20px;
     margin-block: 2px;
     color: white;
     font-weight: 500;
@@ -55,6 +55,11 @@ body {
     }
   }
 
+  .select-button {
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 5px;
+  }
   .sidebar-btn-wrapper {
     display: flex;
     align-items: center;

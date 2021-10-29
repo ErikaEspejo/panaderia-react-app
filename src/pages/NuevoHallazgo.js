@@ -10,6 +10,7 @@ import NuevoTipo from './NuevoTipo';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
+import './styles/styles.css';
 
 const NuevoHallazgo = () => {
   const history = useHistory();
@@ -82,7 +83,7 @@ const NuevoHallazgo = () => {
       {error && <Alert severity="error" message={error} />}
       <br />
       <Container>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="form-modify-finding">
           <div>
             <label htmlFor="">
               Fecha
@@ -96,13 +97,15 @@ const NuevoHallazgo = () => {
             </label>
             <label htmlFor="">
               Tipo de hallazgo
-              <select name="findingType">
+              <select name="findingType" className="select-button">
                 {data.map((el, index) => {
                   return <option key={index}>{el.type}</option>;
                 })}
               </select>
             </label>
-            <button onClick={handleNewType}>Nuevo</button>
+            <button onClick={handleNewType} className="action-button">
+              Nuevo
+            </button>
             <Modal
               show={show}
               children={
@@ -115,31 +118,34 @@ const NuevoHallazgo = () => {
               }
             />
           </div>
-          <div>
+          <div className="finding-actions">
             <label htmlFor="">
-              Descripción del Hallazgo
+              Descripción del Hallazgo <br />
               <textarea name="finding" cols="30" rows="10"></textarea>
             </label>
             <label htmlFor="">
-              Acciones Correctivas
+              Acciones Correctivas <br />
               <textarea name="actions" cols="30" rows="10"></textarea>
             </label>
             <label htmlFor="">
-              Cumplimiento
+              Cumplimiento <br />
               <input type="checkbox" name="accomplishment" />
             </label>
           </div>
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Hallazgo
-          </button>
-          <button
-            onClick={() => {
-              history.push('/hallazgo');
-            }}
-          >
-            Cancel
-          </button>
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Hallazgo
+            </button>
+            <button
+              onClick={() => {
+                history.push('/hallazgo');
+              }}
+              className="action-button"
+            >
+              Cancelar
+            </button>
+          </div>
         </form>
       </Container>
     </>

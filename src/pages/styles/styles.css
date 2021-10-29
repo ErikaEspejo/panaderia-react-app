@@ -1,0 +1,32 @@
+.form-modify-finding {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.finding-actions {
+  display: flex;
+  gap: 10px;
+}
+.finding-actions textarea {
+  width: 300px;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px;
+}
+
+.new-type {
+  text-align: center;
+}
+
+.new-type input {
+  width: 80%;
+  margin-bottom: 10px;
+}

@@ -65,7 +65,7 @@ const ModificarHallazgo = () => {
       {error && <Alert severity="error" message={error} />}
       <br />
       <Container>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="form-modify-finding">
           <div>
             <label htmlFor="">
               Fecha
@@ -81,9 +81,9 @@ const ModificarHallazgo = () => {
               ></input>
             </label>
           </div>
-          <div>
+          <div className="finding-actions">
             <label htmlFor="">
-              Descripción del Hallazgo
+              Descripción del Hallazgo <br />
               <textarea
                 name="finding"
                 cols="30"
@@ -92,7 +92,7 @@ const ModificarHallazgo = () => {
               ></textarea>
             </label>
             <label htmlFor="">
-              Acciones Correctivas
+              Acciones Correctivas <br />
               <textarea
                 name="actions"
                 cols="30"
@@ -101,21 +101,24 @@ const ModificarHallazgo = () => {
               ></textarea>
             </label>
             <label htmlFor="">
-              Cumplimiento
+              Cumplimiento <br />
               <input type="checkbox" name="accomplishment" />
             </label>
           </div>
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Hallazgo
-          </button>
-          <button
-            onClick={() => {
-              history.push('/hallazgo');
-            }}
-          >
-            Cancel
-          </button>
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Hallazgo
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/hallazgo');
+              }}
+            >
+              Cancelar
+            </button>
+          </div>
         </form>
       </Container>
     </>

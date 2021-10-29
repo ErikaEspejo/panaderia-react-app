@@ -16,7 +16,11 @@ const QueryBar = () => {
   const history = useHistory();
   return (
     <>
-      <input type="text" placeholder="Filtrar por tipo de hallazgo" />
+      <input
+        type="text"
+        placeholder="Filtrar por tipo de hallazgo"
+        className="filter"
+      />
       <input type="text" placeholder="Buscar por ID" />
 
       <button

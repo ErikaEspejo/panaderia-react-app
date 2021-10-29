@@ -36,10 +36,12 @@
       font-weight: 500;
       background-color: rgb(175, 175, 175);
       padding-block: 5px;
+      padding-inline: 5px;
     }
     tr {
       td {
         font-size: 13px;
+        padding-inline: 5px;
       }
     }
     tbody {
