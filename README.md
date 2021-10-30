@@ -1,3 +1,9 @@
+# Node APIRest - Bakery Information System
+![yarn](https://img.shields.io/badge/-yarn-red?style=flat)&nbsp;
+![Node.js](https://img.shields.io/badge/-Node.js-brightgreen?style=flat)&nbsp;
+![React](https://img.shields.io/badge/-React.js-0EA3BF?style=flat)&nbsp;
+![SCSS](https://img.shields.io/badge/-Scss-CE649A?style=flat)&nbsp;
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
