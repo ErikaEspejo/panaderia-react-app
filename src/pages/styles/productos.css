@@ -1,0 +1,19 @@
+.product-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-data select,
+.product-supplies select {
+  border-radius: 10px;
+  padding: 5px;
+  margin-inline-start: 10px;
+}
+
+.product-supplies {
+  margin-block-start: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

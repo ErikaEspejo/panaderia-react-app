@@ -4,9 +4,9 @@ import { FaSave } from 'react-icons/fa';
 import API from '../api';
 import { useHistory } from 'react-router-dom';
 import Alert from '../components/Alert';
-
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
+import './styles/productos.css';
 
 const categories = [
   'Panaderia',
@@ -48,7 +48,6 @@ const NuevoProducto = () => {
     loadList();
   }, []);
 
-  console.log(data);
   const handleAdd = (e) => {
     e.preventDefault();
     setTotalSupplies([...totalSupplies, Object.assign({}, original)]);
@@ -92,88 +91,95 @@ const NuevoProducto = () => {
       <br />
       <Container>
         <form onSubmit={onSubmit}>
-          <label htmlFor="">
-            Nombre del Producto
-            <input type="text" name="product" />
-          </label>
-          <label htmlFor="">
-            Categoria del Producto
-            <select name="category">
-              {categories.map((el, index) => {
-                return <option key={index}>{el}</option>;
-              })}
-            </select>
-          </label>
-          <label htmlFor="">
-            Valor de Venta $
-            <input type="number" name="cost" step="0.01" />
-          </label>
-
-          <h3>Insumos requeridos</h3>
-          <hr />
-          <div>
-            <button onClick={handleAdd}>Agregar</button>
-            {!!totalSupplies &&
-              totalSupplies.map((el, index) => {
-                return (
-                  <>
-                    <select
-                      required
-                      name={index}
-                      onChange={(e) => (el.value = e.target.value)}
-                    >
-                      <option value="" selected disabled>
-                        Seleccione el insumo
-                      </option>
-                      {data.map((el, index) => {
-                        return (
-                          <option key={index} value={el.name}>
-                            {el.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <input
-                      required
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      onChange={(e) => (el.quantity = e.target.value)}
-                    />
-                    <select
-                      required
-                      name={index}
-                      onChange={(e) => (el.units = e.target.value)}
-                    >
-                      <option value="" selected disabled>
-                        Un.
-                      </option>
-                      {units.map((el, index) => {
-                        return (
-                          <option key={index} value={el}>
-                            {el}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </>
-                );
-              })}
+          <div className="product-data">
+            <label htmlFor="">
+              Nombre del Producto
+              <input type="text" name="product" />
+            </label>
+            <label htmlFor="">
+              Categoria del Producto
+              <select name="category">
+                {categories.map((el, index) => {
+                  return <option key={index}>{el}</option>;
+                })}
+              </select>
+            </label>
+            <label htmlFor="">
+              Valor de Venta $
+              <input type="number" name="cost" step="0.01" />
+            </label>
           </div>
 
-          {/* <textarea name="supplies"></textarea> */}
+          <h3>Insumos requeridos</h3>
 
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Producto
-          </button>
-          <button
-            onClick={() => {
-              history.push('/produccion/productos');
-            }}
-          >
-            Cancel
-          </button>
+          <div>
+            <button className="action-button add" onClick={handleAdd}>
+              Agregar
+            </button>
+            <div className="product-supplies">
+              {!!totalSupplies &&
+                totalSupplies.map((el, index) => {
+                  return (
+                    <div>
+                      <select
+                        required
+                        name={index}
+                        onChange={(e) => (el.value = e.target.value)}
+                      >
+                        <option value="" selected disabled>
+                          Seleccione el insumo
+                        </option>
+                        {data.map((el, index) => {
+                          return (
+                            <option key={index} value={el.name}>
+                              {el.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <input
+                        required
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        onChange={(e) => (el.quantity = e.target.value)}
+                      />
+                      <select
+                        required
+                        name={index}
+                        onChange={(e) => (el.units = e.target.value)}
+                      >
+                        <option value="" selected disabled>
+                          Un.
+                        </option>
+                        {units.map((el, index) => {
+                          return (
+                            <option key={index} value={el}>
+                              {el}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Producto
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/produccion/productos');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>
