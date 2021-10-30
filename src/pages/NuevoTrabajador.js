@@ -216,7 +216,9 @@ const NuevoTrabajador = () => {
                     return <option key={index}>{el.type}</option>;
                   })}
                 </select>
-                <button onClick={handleNewType}>Nuevo</button>
+                <button className="action-button" onClick={handleNewType}>
+                  Nuevo
+                </button>
                 <Modal
                   show={showModal}
                   children={
