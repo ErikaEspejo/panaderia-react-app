@@ -9,6 +9,7 @@ import Headers from '../components/Headers';
 import Container from '../containers/Container';
 import Modal from '../containers/Modal';
 import NuevoTipo from './NuevoTipo';
+import './styles/insumos.css';
 
 const units = ['Kg', 'Lb', 'g', 'Lt'];
 
@@ -97,73 +98,84 @@ const NuevoInsumo = () => {
       <br />
       <Container>
         <form onSubmit={onSubmit}>
-          <label htmlFor="">
-            Nombre de Insumo
-            <input type="text" name="name" />
-          </label>
-          <label htmlFor="">
-            Tipo de Insumo
-            <select name="type">
-              {data.map((element, index) => {
-                return <option key={index}>{element.type}</option>;
-              })}
-            </select>
-          </label>
-          <button onClick={handleNewType}>Nuevo</button>
-          <Modal
-            show={show}
-            children={
-              <NuevoTipo
-                tipo="Insumo"
-                action={API.createSupplyTypes}
+          <div className="supply-data">
+            <label htmlFor="">
+              Nombre de Insumo
+              <input type="text" name="name" />
+            </label>
+            <label htmlFor="">
+              Tipo de Insumo
+              <select name="type">
+                {data.map((element, index) => {
+                  return <option key={index}>{element.type}</option>;
+                })}
+              </select>
+              <button className="action-button" onClick={handleNewType}>
+                Nuevo
+              </button>
+              <Modal
                 show={show}
-                onClose={() => setShow(false)}
+                children={
+                  <NuevoTipo
+                    tipo="Insumo"
+                    action={API.createSupplyTypes}
+                    show={show}
+                    onClose={() => setShow(false)}
+                  />
+                }
               />
-            }
-          />
-          <label htmlFor="">
-            Cantidad
-            <input type="number" step="0.01" name="quantity" />
-          </label>
-          <select name="units">
-            {units.map((unit, index) => {
-              return <option key={index}>{unit}</option>;
-            })}
-          </select>
-          <label htmlFor="">
-            Proveedor
-            <select name="ProviderId">
-              {provider.map((prov, index) => {
-                return (
-                  <option key={index}>
-                    {prov.id} - {prov.providerName}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-          <button
-            onClick={() => {
-              history.push('/produccion/proveedor/nuevo');
-            }}
-          >
-            Nuevo
-          </button>
-          <label htmlFor="">
-            Costo Total
-            <input type="number" step="0.01" name="totalCost" />
-          </label>
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Insumo
-          </button>
-          <button
-            onClick={() => {
-              history.push('/produccion/insumos');
-            }}
-          >
-            Cancel
-          </button>
+            </label>
+            <label htmlFor="">
+              Cantidad
+              <input type="number" step="0.5" name="quantity" min="0" />
+              Unidad
+              <select name="units">
+                {' '}
+                {units.map((unit, index) => {
+                  return <option key={index}>{unit}</option>;
+                })}
+              </select>
+            </label>
+            <label htmlFor="">
+              Proveedor
+              <select name="ProviderId">
+                {provider.map((prov, index) => {
+                  return (
+                    <option key={index}>
+                      {prov.id} - {prov.providerName}
+                    </option>
+                  );
+                })}
+              </select>
+              <button
+                className="action-button"
+                onClick={() => {
+                  history.push('/produccion/proveedor/nuevo');
+                }}
+              >
+                Nuevo
+              </button>
+            </label>
+            <label htmlFor="">
+              Costo Total
+              <input type="number" step="0.01" name="totalCost" />
+            </label>
+          </div>
+
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Insumo
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/produccion/insumos');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>

@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form .supply-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.supply-data label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.supply-data select {
+  border-radius: 10px;
+  padding-block: 5px;
+}

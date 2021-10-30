@@ -44,11 +44,11 @@ const Supply = ({
         <p>{Provider.providerName}</p>
         <p>
           {' '}
-          <FaPhoneAlt />
+          <FaPhoneAlt className="table-icon" />
           {Provider.providerPhone}
         </p>
         <p>
-          <BiWorld />
+          <BiWorld className="table-icon" />
           {Provider.providerWeb}
         </p>
       </td>
