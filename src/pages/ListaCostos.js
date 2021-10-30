@@ -31,7 +31,7 @@ const Supply = ({ id, costName, costType, costValue, date }) => {
       <td>{id}</td>
       <td>{costName}</td>
       <td>{costType}</td>
-      <td>{costValue}</td>
+      <td>$ {costValue}</td>
       <td>{format(new Date(date), 'MM/dd/yyyy')}</td>
 
       <td className="actions">

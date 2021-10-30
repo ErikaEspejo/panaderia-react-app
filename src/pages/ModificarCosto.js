@@ -12,6 +12,7 @@ import Headers from '../components/Headers';
 import Container from '../containers/Container';
 import Modal from '../containers/Modal';
 import NuevoTipo from './NuevoTipo';
+import './styles/cost.css';
 
 const ModificarCosto = () => {
   const { id } = useParams();
@@ -83,58 +84,64 @@ const ModificarCosto = () => {
       <br />
       <Container>
         <form onSubmit={onSubmit}>
-          <label htmlFor="">
-            Fecha de Pago
-            <input type="date" name="date" value={date} readOnly />
-          </label>
-          <label htmlFor="">
-            Nombre de Costo
-            <input type="text" name="costName" defaultValue={cost.costName} />
-          </label>
-          <label htmlFor="">
-            Tipo de costo
-            <select name="costType">
-              <option selected disabled>
-                {cost.costType}
-              </option>
-              {data.map((el, index) => {
-                return <option key={index}>{el.type}</option>;
-              })}
-            </select>
-          </label>
-          <button onClick={handleNewType}>Nuevo</button>
-          <Modal
-            show={show}
-            children={
-              <NuevoTipo
-                tipo="Costo"
-                action={API.createCostTypes}
+          <div className="cost-data">
+            <label htmlFor="">
+              Fecha de Pago
+              <input type="date" name="date" value={date} readOnly />
+            </label>
+            <label htmlFor="">
+              Nombre de Costo
+              <input type="text" name="costName" defaultValue={cost.costName} />
+            </label>
+            <label htmlFor="">
+              Tipo de costo
+              <select name="costType">
+                <option selected disabled>
+                  {cost.costType}
+                </option>
+                {data.map((el, index) => {
+                  return <option key={index}>{el.type}</option>;
+                })}
+              </select>
+              <button className="action-button" onClick={handleNewType}>
+                Nuevo
+              </button>
+              <Modal
                 show={show}
-                onClose={() => setShow(false)}
+                children={
+                  <NuevoTipo
+                    tipo="Costo"
+                    action={API.createCostTypes}
+                    show={show}
+                    onClose={() => setShow(false)}
+                  />
+                }
               />
-            }
-          />
-          <label htmlFor="">
-            Valor de Costo
-            <input
-              type="number"
-              step="0.01"
-              name="costValue"
-              defaultValue={cost.costValue}
-            />
-          </label>
-
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Costo
-          </button>
-          <button
-            onClick={() => {
-              history.push('/costos');
-            }}
-          >
-            Cancel
-          </button>
+            </label>
+            <label htmlFor="">
+              Valor de Costo
+              <input
+                type="number"
+                step="0.01"
+                name="costValue"
+                defaultValue={cost.costValue}
+              />
+            </label>
+          </div>
+          <div className="buttons">
+            <button className="action-button" type="submit">
+              {' '}
+              <FaSave /> Guardar Costo
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/costos');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>

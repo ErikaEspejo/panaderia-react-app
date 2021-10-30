@@ -4,6 +4,7 @@ import { FaSave } from 'react-icons/fa';
 import API from '../api';
 import { useHistory } from 'react-router-dom';
 import Alert from '../components/Alert';
+import './styles/cost.css';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -74,54 +75,62 @@ const NuevoCosto = () => {
       <br />
       <Container>
         <form onSubmit={onSubmit}>
-          <label htmlFor="">
-            Fecha de Pago
-            <input
-              type="date"
-              name="date"
-              defaultValue={new Date(Date.now()).toISOString().substring(0, 10)}
-            />
-          </label>
-          <label htmlFor="">
-            Nombre de Costo
-            <input type="text" name="costName" />
-          </label>
-          <label htmlFor="">
-            Tipo de costo
-            <select name="costType">
-              {data.map((el, index) => {
-                return <option key={index}>{el.type}</option>;
-              })}
-            </select>
-          </label>
-          <button onClick={handleNewType}>Nuevo</button>
-          <Modal
-            show={show}
-            children={
-              <NuevoTipo
-                tipo="Costo"
-                action={API.createCostTypes}
-                show={show}
-                onClose={() => setShow(false)}
+          <div className="cost-data">
+            <label htmlFor="">
+              Fecha de Pago
+              <input
+                type="date"
+                name="date"
+                defaultValue={new Date(Date.now())
+                  .toISOString()
+                  .substring(0, 10)}
               />
-            }
-          />
-          <label htmlFor="">
-            Valor de Costo
-            <input type="number" step="0.01" name="costValue" />
-          </label>
-
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Costo
-          </button>
-          <button
-            onClick={() => {
-              history.push('/costos');
-            }}
-          >
-            Cancel
-          </button>
+            </label>
+            <label htmlFor="">
+              Nombre de Costo
+              <input type="text" name="costName" />
+            </label>
+            <label htmlFor="">
+              Tipo de costo
+              <select name="costType">
+                {data.map((el, index) => {
+                  return <option key={index}>{el.type}</option>;
+                })}
+              </select>
+              <button className="action-button" onClick={handleNewType}>
+                Nuevo
+              </button>
+              <Modal
+                show={show}
+                children={
+                  <NuevoTipo
+                    tipo="Costo"
+                    action={API.createCostTypes}
+                    show={show}
+                    onClose={() => setShow(false)}
+                  />
+                }
+              />
+            </label>
+            <label htmlFor="">
+              Valor de Costo
+              <input type="number" step="0.01" name="costValue" />
+            </label>
+          </div>
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Costo
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/costos');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>

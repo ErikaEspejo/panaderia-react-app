@@ -1,0 +1,11 @@
+.cost-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cost-data select {
+  padding: 5px;
+  border-radius: 10px;
+  margin-inline: 10px;
+}
