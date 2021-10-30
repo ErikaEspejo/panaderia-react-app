@@ -4,6 +4,7 @@ import { FaSave } from 'react-icons/fa';
 import API from '../api';
 import { useHistory } from 'react-router-dom';
 import Alert from '../components/Alert';
+import './styles/produccion.css';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -85,49 +86,61 @@ const NuevaProduccion = () => {
             <input type="date" name="date" />
           </label>
           <h3>Productos</h3>
-          <button onClick={handleAdd}>Agregar</button>
-          {!!totalProducts &&
-            totalProducts.map((el, index) => {
-              return (
-                <>
-                  <select
-                    required
-                    name={index}
-                    onChange={(e) => (el.value = e.target.value)}
-                  >
-                    <option value="" selected disabled>
-                      Seleccione el product
-                    </option>
-                    {data.map((el, index) => {
-                      return (
-                        <option key={index} value={`${el.id} - ${el.product}`}>
-                          {el.id} - {el.product}
+          <div>
+            <button onClick={handleAdd} className="action-button">
+              Agregar
+            </button>
+            <div className="production-products">
+              {!!totalProducts &&
+                totalProducts.map((el, index) => {
+                  return (
+                    <div>
+                      <select
+                        required
+                        name={index}
+                        onChange={(e) => (el.value = e.target.value)}
+                      >
+                        <option value="" selected disabled>
+                          Seleccione el product
                         </option>
-                      );
-                    })}
-                  </select>
-                  <input
-                    required
-                    type="number"
-                    min="0"
-                    onChange={(e) => (el.quantity = e.target.value)}
-                  />
-                </>
-              );
-            })}
+                        {data.map((el, index) => {
+                          return (
+                            <option
+                              key={index}
+                              value={`${el.id} - ${el.product}`}
+                            >
+                              {el.id} - {el.product}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <input
+                        required
+                        type="number"
+                        min="0"
+                        onChange={(e) => (el.quantity = e.target.value)}
+                      />
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
 
-          <button type="submit">
-            {' '}
-            <FaSave />
-            Crear Producción
-          </button>
-          <button
-            onClick={() => {
-              history.push('/produccion');
-            }}
-          >
-            Cancel
-          </button>
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave />
+              Crear Producción
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/produccion');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>
