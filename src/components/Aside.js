@@ -147,7 +147,7 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
       <SidebarFooter>
         <Menu iconShape="circle">
           <MenuItem icon={<MdLocalOffer />}>
-            <Link to="/sales">Ir a panel de Ventas</Link>
+            <Link to="/sales/active">Ir a panel de Ventas</Link>
           </MenuItem>
           <MenuItem
             icon={<FiLogOut />}
