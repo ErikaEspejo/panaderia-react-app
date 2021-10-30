@@ -82,7 +82,9 @@ const ListaVentas = () => {
     <>
       <Headers title="Ventas" icon={<GiShoppingBag />} />
       <Container>
-        <QueryBar />
+        {
+          //<QueryBar />
+        }
         <Table columns={columns}>
           {data.map(({ id, buyer, order, totalValue, waiter, createdAt }) => {
             return (

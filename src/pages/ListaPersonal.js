@@ -15,7 +15,9 @@ const QueryBar = () => {
   const history = useHistory();
   return (
     <>
-      <input type="text" placeholder="Filtrar por nombre" />
+      {
+        //<input type="text" placeholder="Filtrar por nombre" />
+      }
 
       <button
         className="action-button"

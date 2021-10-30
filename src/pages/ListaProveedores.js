@@ -17,8 +17,8 @@ const QueryBar = () => {
   const history = useHistory();
   return (
     <>
-      <input type="text" placeholder="Filtrar por nombre" />
-      <input type="text" placeholder="Buscar por NIT" />
+      {/*<input type="text" placeholder="Filtrar por nombre" />
+      <input type="text" placeholder="Buscar por NIT" />*/}
 
       <button
         className="action-button"

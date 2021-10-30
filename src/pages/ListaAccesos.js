@@ -16,8 +16,8 @@ const QueryBar = () => {
   const [show, setShow] = useState(false);
   return (
     <>
-      <input type="text" placeholder="Filtrar por nombre" />
-      <input type="text" placeholder="Buscar por ID" />
+      {/*<input type="text" placeholder="Filtrar por nombre" />
+      <input type="text" placeholder="Buscar por ID" />*/}
       <button className="action-button" onClick={() => setShow(true)}>
         + Nuevo
       </button>

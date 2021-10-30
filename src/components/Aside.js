@@ -135,9 +135,9 @@ const Aside = ({ collapsed, toggled, handleToggleSidebar }) => {
           <MenuItem icon={<HiShoppingCart />}>
             <Link to="/ventas">Ventas</Link>
           </MenuItem>
-          <MenuItem icon={<FaChartLine />}>
+          {/*<MenuItem icon={<FaChartLine />}>
             <Link to="/reportes">Reportes</Link>
-          </MenuItem>
+        </MenuItem>*/}
           <MenuItem icon={<FaUsersCog />}>
             <Link to="/accesos">Administrar Accesos</Link>
           </MenuItem>

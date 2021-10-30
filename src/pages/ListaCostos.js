@@ -14,8 +14,8 @@ import Modal from '../containers/Modal';
 const QueryBar = () => {
   return (
     <>
-      <input type="text" placeholder="Filtrar por nombre" />
-      <input type="text" placeholder="Buscar por referencia" />
+      {/*<input type="text" placeholder="Filtrar por nombre" />
+      <input type="text" placeholder="Buscar por referencia" />*/}
       <Link to="/costos/nuevo">
         <button className="action-button"> + Nuevo</button>
       </Link>

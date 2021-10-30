@@ -16,8 +16,9 @@ const QueryBar = () => {
   const history = useHistory();
   return (
     <>
-      <input type="text" placeholder="Filtrar por fecha" />
-
+      {
+        //<input type="text" placeholder="Filtrar por fecha" />
+      }
       <button
         className="action-button"
         onClick={() => history.push('/produccion/nuevo')}
