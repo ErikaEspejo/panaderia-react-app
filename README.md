@@ -1,4 +1,4 @@
-# Node APIRest - Bakery Information System
+# React App - Bakery Information System
 ![yarn](https://img.shields.io/badge/-yarn-red?style=flat)&nbsp;
 ![Node.js](https://img.shields.io/badge/-Node.js-brightgreen?style=flat)&nbsp;
 ![React](https://img.shields.io/badge/-React.js-0EA3BF?style=flat)&nbsp;
