@@ -4,6 +4,7 @@ import { FaPhoneAlt, FaUserAlt, FaAddressBook } from 'react-icons/fa';
 import { HiMail } from 'react-icons/hi';
 import { BiWorld } from 'react-icons/bi';
 import { format } from 'date-fns';
+import './styles/proveedores.css';
 
 import Headers from '../components/Headers';
 import API from '../api';
@@ -55,26 +56,26 @@ const Provider = ({
         <p>{providerName}</p>
         <p>
           {' '}
-          <FaPhoneAlt />
+          <FaPhoneAlt className="table-icon" />
           {providerPhone}
         </p>
         <p>
-          <BiWorld />
+          <BiWorld className="table-icon" />
           {providerWeb}
         </p>
       </td>
       <td>{address.replaceAll('/', ' - ')}</td>
       <td>
         <p>
-          <FaUserAlt />
+          <FaUserAlt className="table-icon" />
           {contactName}
         </p>
         <p>
-          <HiMail />
+          <HiMail className="table-icon" />
           {contactEmail}
         </p>
         <p>
-          <FaPhoneAlt />
+          <FaPhoneAlt className="table-icon" />
           {contactPhone}
         </p>
       </td>

@@ -4,6 +4,7 @@ import { FaSave } from 'react-icons/fa';
 import API from '../api';
 import { useHistory } from 'react-router-dom';
 import Alert from '../components/Alert';
+import './styles/proveedores.css';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -70,8 +71,8 @@ const NuevoProveedor = () => {
       <br />
       <Container>
         <form onSubmit={onSubmit}>
-          <div>
-            <div>
+          <div className="form-data">
+            <div className="provider-data">
               <h3>Datos de la empresa</h3>
               <label htmlFor="">
                 NIT
@@ -103,7 +104,7 @@ const NuevoProveedor = () => {
                 <input type="text" name="city" />
               </label>
             </div>
-            <div>
+            <div className="contact-data">
               <h3>Datos de Contacto</h3>
               <label htmlFor="">
                 Nombres
@@ -119,21 +120,24 @@ const NuevoProveedor = () => {
               </label>
             </div>
           </div>
-          <div>
+          <div className="form-supplies">
             <h3>Insumos</h3>
             <textarea type="text" name="supplies" />
           </div>
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Proveedor
-          </button>
-          <button
-            onClick={() => {
-              history.push('/produccion/proveedor');
-            }}
-          >
-            Cancel
-          </button>
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Proveedor
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/produccion/proveedor');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>

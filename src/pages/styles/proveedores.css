@@ -1,0 +1,36 @@
+.table-icon {
+  margin-inline-end: 10px;
+  color: grey;
+}
+
+.form-data,
+.form-supplies {
+  padding-inline-start: 20px;
+  margin-block-end: 30px;
+}
+
+.form-data {
+  display: flex;
+  gap: 60px;
+}
+
+.provider-data,
+.contact-data {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-data label {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-supplies textarea {
+  width: 300px;
+  border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px;
+}

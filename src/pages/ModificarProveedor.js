@@ -7,6 +7,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Alert from '../components/Alert';
 import { formatISO } from 'date-fns';
 import useProviders from '../containers/useProviders';
+import './styles/proveedores.css';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -80,8 +81,8 @@ const ModificarProveedor = () => {
       <br />
       <Container>
         <form onSubmit={onSubmit}>
-          <div>
-            <div>
+          <div className="form-data">
+            <div className="provider-data">
               <h3>Datos de la empresa</h3>
               <label htmlFor="">
                 NIT
@@ -125,7 +126,7 @@ const ModificarProveedor = () => {
                 <input type="text" name="city" defaultValue={address[1]} />
               </label>
             </div>
-            <div>
+            <div className="contact-data">
               <h3>Datos de Contacto</h3>
               <label htmlFor="">
                 Nombres
@@ -153,7 +154,7 @@ const ModificarProveedor = () => {
               </label>
             </div>
           </div>
-          <div>
+          <div className="form-supplies">
             <h3>Insumos</h3>
             <textarea
               type="text"
@@ -161,17 +162,20 @@ const ModificarProveedor = () => {
               defaultValue={provider.supplies}
             />
           </div>
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Proveedor
-          </button>
-          <button
-            onClick={() => {
-              history.push('/produccion/proveedor');
-            }}
-          >
-            Cancel
-          </button>
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Proveedor
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/produccion/proveedor');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>
