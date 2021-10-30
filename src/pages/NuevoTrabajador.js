@@ -4,6 +4,7 @@ import { FaSave } from 'react-icons/fa';
 import API from '../api';
 import { useHistory } from 'react-router-dom';
 import Alert from '../components/Alert';
+import './styles/trabajador.css';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -34,30 +35,32 @@ const results = (data) => {
 const SalaryResults = ({ data }) => {
   const { workerSalary, companyPayments, workerPayments } = results(data);
   return (
-    <>
-      <h3>Pagos por parte de la compañía</h3>
-      <p>Pago a Salud: {companyPayments.health}</p>
-      <p>Pago a Pensión: {companyPayments.pension}</p>
-      <p>Pago a ARL: {companyPayments.arl}</p>
-      <p>Pago a Caja de Compensación: {companyPayments.compensation}</p>
-      <p>
-        Total de Pagos:{' '}
-        {companyPayments.health +
-          companyPayments.pension +
-          companyPayments.arl +
-          companyPayments.compensation}
-      </p>
-
-      <h3>Pagos por parte del empleado</h3>
-      <p>Pago a Salud: {workerPayments.health}</p>
-      <p>Pago a Pensión: {workerPayments.pension}</p>
-      <p>Total de Pagos: {workerPayments.pension + workerPayments.health}</p>
-
-      <h3>
-        Salario Total:{' '}
-        {workerSalary - (workerPayments.pension + workerPayments.health)}
-      </h3>
-    </>
+    <div className="payments">
+      <div>
+        <h3>Pagos por parte de la compañía</h3>
+        <p>Pago a Salud: {companyPayments.health}</p>
+        <p>Pago a Pensión: {companyPayments.pension}</p>
+        <p>Pago a ARL: {companyPayments.arl}</p>
+        <p>Pago a Caja de Compensación: {companyPayments.compensation}</p>
+        <p>
+          Total de Pagos:{' '}
+          {companyPayments.health +
+            companyPayments.pension +
+            companyPayments.arl +
+            companyPayments.compensation}
+        </p>
+      </div>
+      <div>
+        <h3>Pagos por parte del empleado</h3>
+        <p>Pago a Salud: {workerPayments.health}</p>
+        <p>Pago a Pensión: {workerPayments.pension}</p>
+        <p>Total de Pagos: {workerPayments.pension + workerPayments.health}</p>
+        <h3>
+          Salario Total:{' '}
+          {workerSalary - (workerPayments.pension + workerPayments.health)}
+        </h3>
+      </div>
+    </div>
   );
 };
 
@@ -180,169 +183,184 @@ const NuevoTrabajador = () => {
       <br />
       <Container>
         <form onSubmit={onSubmit}>
-          <label htmlFor="">
-            Nombres
-            <input type="text" name="firstName" />
-          </label>
-          <label htmlFor="">
-            Apellidos
-            <input type="text" name="lastName" />
-          </label>
-          <label htmlFor="">
-            Identificación
-            <select name="idType">
-              <option selected disabled>
-                Tipo
-              </option>
-              {idTypes.map((el, index) => {
-                return <option key={index}>{el}</option>;
-              })}
-            </select>
-            <input type="text" name="id" />
-          </label>
-          <label htmlFor="">
-            Cargo
-            <select name="position">
-              <option selected disabled>
-                Seleccione el cargo
-              </option>
-              {data.map((el, index) => {
-                return <option key={index}>{el.type}</option>;
-              })}
-            </select>
-          </label>
-          <button onClick={handleNewType}>Nuevo</button>
-          <Modal
-            show={showModal}
-            children={
-              <NuevoTipo
-                tipo="Cargo"
-                action={API.createPositionTypes}
-                show={showModal}
-                onClose={() => setShowModal(false)}
-              />
-            }
-          />
-          <label htmlFor="">
-            Fecha de Ingreso
-            <input type="date" name="entryDate" />
-          </label>
+          <div className="worker">
+            <div className="worker-data">
+              <h3>Datos del Trabajador</h3>
+              <label htmlFor="">
+                Nombres
+                <input type="text" name="firstName" />
+              </label>
+              <label htmlFor="">
+                Apellidos
+                <input type="text" name="lastName" />
+              </label>
+              <label htmlFor="">
+                Identificación
+                <select name="idType">
+                  <option selected disabled>
+                    Tipo
+                  </option>
+                  {idTypes.map((el, index) => {
+                    return <option key={index}>{el}</option>;
+                  })}
+                </select>
+                <input type="text" name="id" />
+              </label>
+              <label htmlFor="">
+                Cargo
+                <select name="position">
+                  <option selected disabled>
+                    Seleccione el cargo
+                  </option>
+                  {data.map((el, index) => {
+                    return <option key={index}>{el.type}</option>;
+                  })}
+                </select>
+                <button onClick={handleNewType}>Nuevo</button>
+                <Modal
+                  show={showModal}
+                  children={
+                    <NuevoTipo
+                      tipo="Cargo"
+                      action={API.createPositionTypes}
+                      show={showModal}
+                      onClose={() => setShowModal(false)}
+                    />
+                  }
+                />
+              </label>
+              <label htmlFor="">
+                Fecha de Ingreso
+                <input type="date" name="entryDate" />
+              </label>
 
-          <label htmlFor="">
-            Fecha de Retiro
-            <input type="date" name="retreatDate" />
-          </label>
-          <label htmlFor="">
-            Estado
-            <input type="radio" name="state" value="active" id="active" />
-            <label htmlFor="active">Activo</label>
-            <input type="radio" name="state" value="inactive" id="inactive" />
-            <label htmlFor="inactive">Inactivo</label>
-          </label>
+              <label htmlFor="">
+                Fecha de Retiro
+                <input type="date" name="retreatDate" />
+              </label>
+              <label htmlFor="">
+                Estado
+                <input type="radio" name="state" value="active" id="active" />
+                <label htmlFor="active">Activo</label>
+                <input
+                  type="radio"
+                  name="state"
+                  value="inactive"
+                  id="inactive"
+                />
+                <label htmlFor="inactive">Inactivo</label>
+              </label>
+            </div>
 
-          <hr />
-          <h3>Horas asignadas</h3>
-          <label htmlFor="">
-            No. Horas Diurnas
-            <input
-              type="number"
-              name="totalDayHours"
-              defaultValue="0"
-              value={input.totalDayHours}
-              onInput={(e) =>
-                setInput({ ...input, totalDayHours: parseInt(e.target.value) })
-              }
-            />
-          </label>
-          <label htmlFor="">
-            No. Horas Diurnas Festivas
-            <input
-              type="number"
-              name="totalHolidayDayHours"
-              defaultValue="0"
-              value={input.totalHolidayDayHours}
-              onInput={(e) =>
-                setInput({
-                  ...input,
-                  totalHolidayDayHours: parseInt(e.target.value),
-                })
-              }
-            />
-          </label>
-          <label htmlFor="">
-            No. Horas Nocturnas
-            <input
-              type="number"
-              name="totalNightHours"
-              defaultValue="0"
-              value={input.totalNightHours}
-              onInput={(e) =>
-                setInput({
-                  ...input,
-                  totalNightHours: parseInt(e.target.value),
-                })
-              }
-            />
-          </label>
-          <label htmlFor="">
-            No. Horas Nocturnas Festivas
-            <input
-              type="number"
-              name="totalHolidayNightHours"
-              defaultValue="0"
-              value={input.totalHolidayNightHours}
-              onInput={(e) =>
-                setInput({
-                  ...input,
-                  totalHolidayNightHours: parseInt(e.target.value),
-                })
-              }
-            />
-          </label>
-          <label htmlFor="">
-            Salario
-            <input
-              type="number"
-              name="salary"
-              step="0.01"
-              defaultValue="0"
-              value={input.salary}
-              onInput={(e) =>
-                setInput({ ...input, salary: parseFloat(e.target.value) })
-              }
-            />
-          </label>
+            <div className="worker-hours">
+              <h3>Horas asignadas</h3>
+              <label htmlFor="">
+                No. Horas Diurnas
+                <input
+                  type="number"
+                  name="totalDayHours"
+                  defaultValue="0"
+                  value={input.totalDayHours}
+                  onInput={(e) =>
+                    setInput({
+                      ...input,
+                      totalDayHours: parseInt(e.target.value),
+                    })
+                  }
+                />
+              </label>
+              <label htmlFor="">
+                No. Horas Diurnas Festivas
+                <input
+                  type="number"
+                  name="totalHolidayDayHours"
+                  defaultValue="0"
+                  value={input.totalHolidayDayHours}
+                  onInput={(e) =>
+                    setInput({
+                      ...input,
+                      totalHolidayDayHours: parseInt(e.target.value),
+                    })
+                  }
+                />
+              </label>
+              <label htmlFor="">
+                No. Horas Nocturnas
+                <input
+                  type="number"
+                  name="totalNightHours"
+                  defaultValue="0"
+                  value={input.totalNightHours}
+                  onInput={(e) =>
+                    setInput({
+                      ...input,
+                      totalNightHours: parseInt(e.target.value),
+                    })
+                  }
+                />
+              </label>
+              <label htmlFor="">
+                No. Horas Nocturnas Festivas
+                <input
+                  type="number"
+                  name="totalHolidayNightHours"
+                  defaultValue="0"
+                  value={input.totalHolidayNightHours}
+                  onInput={(e) =>
+                    setInput({
+                      ...input,
+                      totalHolidayNightHours: parseInt(e.target.value),
+                    })
+                  }
+                />
+              </label>
+              <label htmlFor="">
+                Salario
+                <input
+                  type="number"
+                  name="salary"
+                  step="0.01"
+                  defaultValue="0"
+                  value={input.salary}
+                  onInput={(e) =>
+                    setInput({ ...input, salary: parseFloat(e.target.value) })
+                  }
+                />
+              </label>
 
-          <hr />
-          <label htmlFor="">
-            Riesgo
-            <input
-              defaultValue="1"
-              type="number"
-              name="risk"
-              value={input.risk}
-              onInput={(e) =>
-                setInput({ ...input, risk: parseInt(e.target.value) })
-              }
-            />
-          </label>
-          <button onClick={calcularSalario}>Calcular Salario</button>
-
-          <br />
+              <label htmlFor="">
+                Riesgo
+                <input
+                  defaultValue="1"
+                  type="number"
+                  name="risk"
+                  value={input.risk}
+                  onInput={(e) =>
+                    setInput({ ...input, risk: parseInt(e.target.value) })
+                  }
+                />
+              </label>
+              <button className="action-button" onClick={calcularSalario}>
+                Calcular Salario
+              </button>
+            </div>
+          </div>
 
           {show ? <SalaryResults data={input} /> : null}
-
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Trabajador
-          </button>
-          <button
-            onClick={() => {
-              history.push('/personal');
-            }}
-          >
-            Cancel
-          </button>
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Trabajador
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/personal');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>

@@ -7,6 +7,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Alert from '../components/Alert';
 import { formatISO } from 'date-fns';
 import useWorker from '../containers/useWorker';
+import './styles/trabajador.css';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -39,30 +40,33 @@ const SalaryResults = ({ data, info }) => {
   // console.log('data', data, 'info', info);
   const { workerSalary, companyPayments, workerPayments } = results(data);
   return (
-    <>
-      <h3>Pagos por parte de la compañía</h3>
-      <p>Pago a Salud: {companyPayments.health}</p>
-      <p>Pago a Pensión: {companyPayments.pension}</p>
-      <p>Pago a ARL: {companyPayments.arl}</p>
-      <p>Pago a Caja de Compensación: {companyPayments.compensation}</p>
-      <p>
-        Total de Pagos:{' '}
-        {companyPayments.health +
-          companyPayments.pension +
-          companyPayments.arl +
-          companyPayments.compensation}
-      </p>
+    <div className="payments">
+      <div>
+        <h3>Pagos por parte de la compañía</h3>
+        <p>Pago a Salud: {companyPayments.health}</p>
+        <p>Pago a Pensión: {companyPayments.pension}</p>
+        <p>Pago a ARL: {companyPayments.arl}</p>
+        <p>Pago a Caja de Compensación: {companyPayments.compensation}</p>
+        <p>
+          Total de Pagos:{' '}
+          {companyPayments.health +
+            companyPayments.pension +
+            companyPayments.arl +
+            companyPayments.compensation}
+        </p>
+      </div>
+      <div>
+        <h3>Pagos por parte del empleado</h3>
+        <p>Pago a Salud: {workerPayments.health}</p>
+        <p>Pago a Pensión: {workerPayments.pension}</p>
+        <p>Total de Pagos: {workerPayments.pension + workerPayments.health}</p>
 
-      <h3>Pagos por parte del empleado</h3>
-      <p>Pago a Salud: {workerPayments.health}</p>
-      <p>Pago a Pensión: {workerPayments.pension}</p>
-      <p>Total de Pagos: {workerPayments.pension + workerPayments.health}</p>
-
-      <h3>
-        Salario Total:{' '}
-        {workerSalary - (workerPayments.pension + workerPayments.health)}
-      </h3>
-    </>
+        <h3>
+          Salario Total:{' '}
+          {workerSalary - (workerPayments.pension + workerPayments.health)}
+        </h3>
+      </div>
+    </div>
   );
 };
 
@@ -181,181 +185,206 @@ const ModificarTrabajador = () => {
       <br />
       <Container>
         <form onSubmit={onSubmit}>
-          <label htmlFor="">
-            Nombres
-            <input
-              type="text"
-              name="firstName"
-              defaultValue={worker.firstName}
-            />
-          </label>
-          <label htmlFor="">
-            Apellidos
-            <input type="text" name="lastName" defaultValue={worker.lastName} />
-          </label>
-          <label htmlFor="">
-            Identificación
-            <select name="idType">
-              <option selected disabled>
-                {worker.idType}
-              </option>
-              {idTypes.map((el, index) => {
-                return <option key={index}>{el}</option>;
-              })}
-            </select>
-            <input type="text" name="id" defaultValue={worker.id} />
-          </label>
-          <label htmlFor="">
-            Cargo
-            <select name="position">
-              <option selected disabled>
-                {worker.position === 'admin'
-                  ? 'Administrador'
-                  : worker.position}
-              </option>
-              {data.map((el, index) => {
-                return <option key={index}>{el.type}</option>;
-              })}
-            </select>
-          </label>
-          <button onClick={handleNewType}>Nuevo</button>
-          <Modal
-            show={showModal}
-            children={
-              <NuevoTipo
-                tipo="Cargo"
-                action={API.createPositionTypes}
-                show={showModal}
-                onClose={() => setShowModal(false)}
-              />
-            }
-          />
-          <label htmlFor="">
-            Fecha de Ingreso
-            <input type="date" name="entryDate" defaultValue={entryDate} />
-          </label>
+          <div className="worker">
+            <div className="worker-data">
+              <h3>Datos del Trabajador</h3>
+              <label htmlFor="">
+                Nombres
+                <input
+                  type="text"
+                  name="firstName"
+                  defaultValue={worker.firstName}
+                />
+              </label>
+              <label htmlFor="">
+                Apellidos
+                <input
+                  type="text"
+                  name="lastName"
+                  defaultValue={worker.lastName}
+                />
+              </label>
+              <label htmlFor="">
+                Identificación
+                <select name="idType">
+                  <option selected disabled>
+                    {worker.idType}
+                  </option>
+                  {idTypes.map((el, index) => {
+                    return <option key={index}>{el}</option>;
+                  })}
+                </select>
+                <input type="text" name="id" defaultValue={worker.id} />
+              </label>
+              <label htmlFor="">
+                Cargo
+                <select name="position">
+                  <option selected disabled>
+                    {worker.position === 'admin'
+                      ? 'Administrador'
+                      : worker.position}
+                  </option>
+                  {data.map((el, index) => {
+                    return <option key={index}>{el.type}</option>;
+                  })}
+                </select>
+                <button className="action-button" onClick={handleNewType}>
+                  Nuevo
+                </button>
+                <Modal
+                  show={showModal}
+                  children={
+                    <NuevoTipo
+                      tipo="Cargo"
+                      action={API.createPositionTypes}
+                      show={showModal}
+                      onClose={() => setShowModal(false)}
+                    />
+                  }
+                />
+              </label>
+              <label htmlFor="">
+                Fecha de Ingreso
+                <input type="date" name="entryDate" defaultValue={entryDate} />
+              </label>
 
-          <label htmlFor="">
-            Fecha de Retiro
-            <input type="date" name="retreatDate" defaultValue={retreatDate} />
-          </label>
-          <label htmlFor="">
-            Estado
-            <input type="radio" name="state" value="active" id="active" />
-            <label htmlFor="active">Activo</label>
-            <input type="radio" name="state" value="inactive" id="inactive" />
-            <label htmlFor="inactive">Inactivo</label>
-          </label>
+              <label htmlFor="">
+                Fecha de Retiro
+                <input
+                  type="date"
+                  name="retreatDate"
+                  defaultValue={retreatDate}
+                />
+              </label>
+              <label htmlFor="">
+                Estado
+                <input type="radio" name="state" value="active" id="active" />
+                <label htmlFor="active">Activo</label>
+                <input
+                  type="radio"
+                  name="state"
+                  value="inactive"
+                  id="inactive"
+                />
+                <label htmlFor="inactive">Inactivo</label>
+              </label>
+            </div>
 
-          <hr />
-          <h3>Horas asignadas</h3>
-          <label htmlFor="">
-            No. Horas Diurnas
-            <input
-              type="number"
-              name="totalDayHours"
-              onChange={(e) =>
-                setInput({ ...input, totalDayHours: parseInt(e.target.value) })
-              }
-              defaultValue={worker.totalDayHours}
-              min="0"
-            />
-          </label>
-          <label htmlFor="">
-            No. Horas Diurnas Festivas
-            <input
-              type="number"
-              name="totalHolidayDayHours"
-              value={input.totalHolidayDayHours}
-              onChange={(e) =>
-                setInput({
-                  ...input,
-                  totalHolidayDayHours: parseInt(e.target.value),
-                })
-              }
-              defaultValue={worker.totalHolidayDayHours}
-              min="0"
-            />
-          </label>
-          <label htmlFor="">
-            No. Horas Nocturnas
-            <input
-              type="number"
-              name="totalNightHours"
-              value={input.totalNightHours}
-              onChange={(e) =>
-                setInput({
-                  ...input,
-                  totalNightHours: parseInt(e.target.value),
-                })
-              }
-              defaultValue={worker.totalNightHours}
-              min="0"
-            />
-          </label>
-          <label htmlFor="">
-            No. Horas Nocturnas Festivas
-            <input
-              type="number"
-              name="totalHolidayNightHours"
-              value={input.totalHolidayNightHours}
-              onChange={(e) =>
-                setInput({
-                  ...input,
-                  totalHolidayNightHours: parseInt(e.target.value),
-                })
-              }
-              defaultValue={worker.totalHolidayNightHours}
-              min="0"
-            />
-          </label>
-          <label htmlFor="">
-            Salario
-            <input
-              type="number"
-              name="salary"
-              step="0.01"
-              defaultValue={worker.salary}
-              value={input.salary}
-              onChange={(e) =>
-                setInput({ ...input, salary: parseFloat(e.target.value) })
-              }
-              min="0"
-            />
-          </label>
+            <div className="worker-hours">
+              <h3>Horas asignadas</h3>
+              <label htmlFor="">
+                No. Horas Diurnas
+                <input
+                  type="number"
+                  name="totalDayHours"
+                  onChange={(e) =>
+                    setInput({
+                      ...input,
+                      totalDayHours: parseInt(e.target.value),
+                    })
+                  }
+                  defaultValue={worker.totalDayHours}
+                  min="0"
+                />
+              </label>
+              <label htmlFor="">
+                No. Horas Diurnas Festivas
+                <input
+                  type="number"
+                  name="totalHolidayDayHours"
+                  value={input.totalHolidayDayHours}
+                  onChange={(e) =>
+                    setInput({
+                      ...input,
+                      totalHolidayDayHours: parseInt(e.target.value),
+                    })
+                  }
+                  defaultValue={worker.totalHolidayDayHours}
+                  min="0"
+                />
+              </label>
+              <label htmlFor="">
+                No. Horas Nocturnas
+                <input
+                  type="number"
+                  name="totalNightHours"
+                  value={input.totalNightHours}
+                  onChange={(e) =>
+                    setInput({
+                      ...input,
+                      totalNightHours: parseInt(e.target.value),
+                    })
+                  }
+                  defaultValue={worker.totalNightHours}
+                  min="0"
+                />
+              </label>
+              <label htmlFor="">
+                No. Horas Nocturnas Festivas
+                <input
+                  type="number"
+                  name="totalHolidayNightHours"
+                  value={input.totalHolidayNightHours}
+                  onChange={(e) =>
+                    setInput({
+                      ...input,
+                      totalHolidayNightHours: parseInt(e.target.value),
+                    })
+                  }
+                  defaultValue={worker.totalHolidayNightHours}
+                  min="0"
+                />
+              </label>
+              <label htmlFor="">
+                Salario
+                <input
+                  type="number"
+                  name="salary"
+                  step="0.01"
+                  defaultValue={worker.salary}
+                  value={input.salary}
+                  onChange={(e) =>
+                    setInput({ ...input, salary: parseFloat(e.target.value) })
+                  }
+                  min="0"
+                />
+              </label>
 
-          <hr />
-          <label htmlFor="">
-            Riesgo
-            <input
-              type="number"
-              name="risk"
-              value={input.risk}
-              onChange={(e) => {
-                setInput({ ...input, risk: parseInt(e.target.value) });
-              }}
-              defaultValue={worker.risk}
-              max="5"
-              min="1"
-            />
-          </label>
-          <button onClick={calcularSalario}>Calcular Salario</button>
-
-          <br />
+              <label htmlFor="">
+                Riesgo
+                <input
+                  type="number"
+                  name="risk"
+                  value={input.risk}
+                  onChange={(e) => {
+                    setInput({ ...input, risk: parseInt(e.target.value) });
+                  }}
+                  defaultValue={worker.risk}
+                  max="5"
+                  min="1"
+                />
+              </label>
+              <button className="action-button" onClick={calcularSalario}>
+                Calcular Salario
+              </button>
+            </div>
+          </div>
 
           {show ? <SalaryResults data={input} /> : null}
-
-          <button type="submit">
-            {' '}
-            <FaSave /> Guardar Trabajador
-          </button>
-          <button
-            onClick={() => {
-              history.push('/personal');
-            }}
-          >
-            Cancel
-          </button>
+          <div className="buttons">
+            <button type="submit" className="action-button">
+              {' '}
+              <FaSave /> Guardar Trabajador
+            </button>
+            <button
+              className="action-button"
+              onClick={() => {
+                history.push('/personal');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </Container>
     </>

@@ -1,0 +1,29 @@
+.worker {
+  padding: 10px;
+  display: flex;
+  gap: 40px;
+  margin-block-end: 20px;
+}
+
+.worker h3 {
+  margin: 0;
+}
+
+.worker-data,
+.worker-hours {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.worker-data select {
+  padding: 5px;
+  border-radius: 10px;
+  margin-inline: 10px;
+}
+
+.payments {
+  padding: 10px;
+  display: flex;
+  gap: 60px;
+}
