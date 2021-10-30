@@ -4,6 +4,7 @@ import { FaSave } from 'react-icons/fa';
 import API from '../api';
 import { useHistory } from 'react-router-dom';
 import Alert from '../components/Alert';
+import './styles/user.css';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -107,67 +108,66 @@ const NuevoUsuario = (props) => {
       <br />
 
       <form onSubmit={onSubmit} style={{ dsplay: 'flex' }}>
-        <label htmlFor="">
-          Documento de identidad
-          <select
-            name="id"
-            onChange={(e) => {
-              const identificacion = e.target.value.substring(5);
-              setIdentification(identificacion);
-            }}
-          >
-            <option selected disabled>
-              Seleccione el usuario por su identificacion
-            </option>
-            {users.map((element, index) => {
-              return (
-                <option key={index}>
-                  {element.idType} - {element.id}
-                </option>
-              );
-            })}
-          </select>
-        </label>
+        <div className="user-data">
+          <label htmlFor="">
+            Documento de identidad
+            <select
+              name="id"
+              onChange={(e) => {
+                const identificacion = e.target.value.substring(5);
+                setIdentification(identificacion);
+              }}
+            >
+              <option selected disabled>
+                Seleccione el usuario por su identificacion
+              </option>
+              {users.map((element, index) => {
+                return (
+                  <option key={index}>
+                    {element.idType} - {element.id}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
 
-        {identification ? (
-          <ShowInfo
-            identification={identification}
-            position={({ workerPosition }) => setPosition(workerPosition)}
-            name={({ workerName }) => setName(workerName)}
-            lastname={({ workerLastName }) => setLastName(workerLastName)}
-          />
-        ) : null}
+          {identification ? (
+            <ShowInfo
+              identification={identification}
+              position={({ workerPosition }) => setPosition(workerPosition)}
+              name={({ workerName }) => setName(workerName)}
+              lastname={({ workerLastName }) => setLastName(workerLastName)}
+            />
+          ) : null}
 
-        <p>
           <label htmlFor="">
             Correo Electronico
             <input type="email" name="email" />
           </label>
-        </p>
-        <p>
+
           <label htmlFor="">
             Usuario
             <input type="text" name="username" />
           </label>
-        </p>
-        <p>
+
           <label htmlFor="">
             Contraseña
             <input type="password" name="password" />
           </label>
-        </p>
-        <p>
+
           <label htmlFor="">
             Confirmar Contraseña
             <input type="password" name="passwordConfirmation" />
           </label>
-        </p>
+        </div>
 
-        <button type="submit">
+        <button type="submit" className="action-button">
           {' '}
           <FaSave /> Guardar Usuario
         </button>
-        <button onClick={props.onClose}>Cancel</button>
+        <button className="action-button" onClick={props.onClose}>
+          Cancel
+        </button>
       </form>
     </>
   );

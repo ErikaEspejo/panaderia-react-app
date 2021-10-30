@@ -1,0 +1,23 @@
+.user-data {
+  padding-block-end: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-data select {
+  padding: 5px;
+  border-radius: 10px;
+  margin-inline-start: 10px;
+}
+
+.user-data label {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-data input {
+  width: 260px;
+}

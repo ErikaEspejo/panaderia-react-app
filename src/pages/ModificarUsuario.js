@@ -8,6 +8,7 @@ import Alert from '../components/Alert';
 import { formatISO } from 'date-fns';
 import useWorker from '../containers/useWorker';
 import useUsers from '../containers/useUsers';
+import './styles/user.css';
 
 import Headers from '../components/Headers';
 import Container from '../containers/Container';
@@ -66,39 +67,42 @@ const ModificarUsuario = (props) => {
         onSubmit={onSubmit}
         style={{ display: 'flex', flexDirection: 'column' }}
       >
-        <label htmlFor="">
-          Documento de identidad
-          <input type="text" name="id" value={user.identificationNumber} />
-        </label>
-        <label htmlFor="">
-          Nombre del Trabajador
-          <input
-            type="text"
-            name="id"
-            value={`${user.name} ${user.lastname}`}
-          />
-        </label>
+        <div className="user-data">
+          <label htmlFor="">
+            Documento de identidad
+            <input type="text" name="id" value={user.identificationNumber} />
+          </label>
+          <label htmlFor="">
+            Nombre del Trabajador
+            <input
+              type="text"
+              name="id"
+              value={`${user.name} ${user.lastname}`}
+            />
+          </label>
 
-        <label htmlFor="">
-          Correo Electronico
-          <input type="email" name="email" defaultValue={user.email} />
-        </label>
+          <label htmlFor="">
+            Correo Electronico
+            <input type="email" name="email" defaultValue={user.email} />
+          </label>
 
-        <label htmlFor="">
-          Usuario
-          <input type="text" name="username" defaultValue={user.username} />
-        </label>
+          <label htmlFor="">
+            Usuario
+            <input type="text" name="username" defaultValue={user.username} />
+          </label>
 
-        <label htmlFor="">
-          Contraseña
-          <input type="password" name="password" />
-        </label>
-
-        <button type="submit">
+          <label htmlFor="">
+            Contraseña
+            <input type="password" name="password" />
+          </label>
+        </div>
+        <button type="submit" className="action-button">
           {' '}
           <FaSave /> Guardar Usuario
         </button>
-        <button onClick={props.onClose}>Cancel</button>
+        <button className="action-button" onClick={props.onClose}>
+          Cancel
+        </button>
       </form>
     </>
   );
