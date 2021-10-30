@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { GiShoppingBag } from 'react-icons/gi';
 import { format } from 'date-fns';
 
+import EmptyTable from '../components/EmptyTable';
+
 import Headers from '../components/Headers';
 import API from '../api';
 import Container from '../containers/Container';

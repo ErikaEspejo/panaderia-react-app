@@ -7,6 +7,7 @@ import EliminarCosto from './EliminarCosto';
 import Modal from '../containers/Modal';
 import { format } from 'date-fns';
 import EliminarPedido from './EliminarPedido';
+import EmptyTable from '../components/EmptyTable';
 
 const Sales = ({ order }) => {
   const history = useHistory();
@@ -129,6 +130,7 @@ export default function PedidosActivos() {
     <>
       <Container>
         <Table columns={columns}>
+          <EmptyTable />
           {data
             .map((el, index) => {
               return <Sales key={index} order={el} />;
