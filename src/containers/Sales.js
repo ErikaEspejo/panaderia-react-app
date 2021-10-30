@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontSize: '16px',
   },
   bottom: {
     position: 'fixed',
@@ -56,16 +57,17 @@ export default function Sales() {
   return (
     <div className={classes.root}>
       {' '}
-      <AppBar position="static">
+      <AppBar position="static" style={{ backgroundColor: '#363C3D' }}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Ventas
+            VENTAS
           </Typography>
 
           <Typography variant="h6" className={classes.title}>
             {user.name} {user.lastname}
           </Typography>
           <Button
+            style={{ color: 'white' }}
             onClick={() => {
               clearSession();
               logout();

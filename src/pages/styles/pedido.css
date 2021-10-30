@@ -1,0 +1,135 @@
+.table-list {
+  display: flex;
+  width: 60vw;
+  flex-wrap: wrap;
+  height: 70%;
+  gap: 20px;
+}
+
+.table-name {
+  list-style: none;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a1a0a0;
+  color: white;
+  border-radius: 10px;
+}
+
+.table-name:hover {
+  background-color: #363c3d;
+
+  cursor: pointer;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.order input {
+  border-radius: 10px;
+  border: 1px solid grey;
+  padding: 5px;
+  width: 65%;
+  font-family: 'Roboto', sans-serif;
+}
+.order-final-prods .quantity {
+  width: 50%;
+  margin-inline-start: 5px;
+}
+
+h3,
+h4,
+h5 {
+  margin-block: 5px;
+}
+
+.buyer-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-block: 15px;
+}
+
+.buyer-data label {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.order-details {
+  display: flex;
+  gap: 30px;
+}
+
+.order-products select {
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.order-products {
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.list-prods {
+  margin-block: 10px;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+}
+.list-product {
+  list-style: none;
+  padding: 5px;
+  font-size: 14px;
+}
+.list-product:hover {
+  cursor: pointer;
+  color: #3f51b5;
+}
+
+.action-button {
+  padding-block: 5px;
+  padding-inline: 20px;
+  margin-block: 2px;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  background-color: #888888;
+}
+
+.action-button:hover {
+  cursor: pointer;
+  background-color: green;
+}
+
+.close-button {
+  padding-block: 5px;
+  padding-inline: 8px;
+  margin-inline: 2px;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  background-color: #888888;
+}
+
+.close-button:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
+.order-final {
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  width: 250px;
+  gap: 5px;
+  overflow-y: scroll;
+}
+
+.order-final-prods {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

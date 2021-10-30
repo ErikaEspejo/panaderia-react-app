@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import FormNuevoPedido from '../components/FormNuevoPedido';
 import Modal from '../containers/Modal';
+import './styles/pedido.css';
 
 const Tables = ({ number }) => {
   const [index, setIndex] = useState('');
   const [show, setShow] = useState(false);
 
   return (
-    <ul>
+    <ul className="table-list">
       {[...Array(number)].map((e, i) => {
         return (
           <>
             <li
+              className="table-name"
               key={i + 1}
               onClick={() => {
                 setIndex(i + 1);

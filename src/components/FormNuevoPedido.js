@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import API from '../api';
+import '../pages/styles/pedido.css';
+import Alert from '../components/Alert';
 
 const categories = [
   'Panaderia',
@@ -30,7 +32,6 @@ export default function FormNuevoPedido({ onClose, id }) {
   async function onSubmit(event) {
     event.preventDefault();
     const { idBuyer, buyer } = event.target.elements;
-    console.log(totalProducts);
 
     const arrayProducts = [];
     totalProducts.forEach((el) => {
@@ -45,7 +46,7 @@ export default function FormNuevoPedido({ onClose, id }) {
       totalValue += parseInt(el.quantity * el.cost);
     });
 
-    if (idBuyer.value && buyer.value && arrayProducts) {
+    if (idBuyer.value && buyer.value && arrayProducts.length > 0) {
       try {
         setError('');
         await API.createOrder({
@@ -57,7 +58,7 @@ export default function FormNuevoPedido({ onClose, id }) {
         setSuccess('El pedido ha sido generado con exito');
         setTimeout(() => {
           history.push('/sales/active');
-        }, 700);
+        }, 200);
       } catch (error) {
         console.log(error);
         setError(
@@ -86,88 +87,105 @@ export default function FormNuevoPedido({ onClose, id }) {
   }, []);
 
   return (
-    <>
+    <div className="order">
+      {error && <Alert severity="error" message={error} />}
       <h3>Nuevo Pedido - Mesa No. {id}</h3>
       <form onSubmit={onSubmit}>
-        <label htmlFor="">
-          Identificación:
-          <input name="idBuyer" type="text" />{' '}
-        </label>
-        <label htmlFor="">
-          Comprador:
-          <input name="buyer" type="text" />{' '}
-        </label>
+        <div className="buyer-data">
+          <label htmlFor="">
+            Identificación:
+            <input required name="idBuyer" type="text" />{' '}
+          </label>
+          <label htmlFor="">
+            Comprador:
+            <input required name="buyer" type="text" />{' '}
+          </label>
+        </div>
 
-        <div style={{ display: 'flex', gap: '30px' }}>
-          <div>
-            <h3>Productos</h3>
+        <div className="order-details">
+          <div className="order-products">
+            <h4>Productos</h4>
             <select name="" id="" onChange={(e) => setCategory(e.target.value)}>
               <option disabled selected>
                 Filtre por categoría
               </option>
               {categories.map((el, i) => {
-                return <option value={el}>{el}</option>;
+                return (
+                  <option key={i} value={el}>
+                    {el}
+                  </option>
+                );
               })}
             </select>
-            {category
-              ? data.map((el, i) => {
-                  if (el.category === category) {
-                    return (
-                      <div
-                        onClick={() =>
-                          setTotalProducts([
-                            ...totalProducts,
-                            {
-                              id: el.id,
-                              product: el.product,
-                              quantity: '',
-                              maxQuantity: el.quantity,
-                              cost: el.cost,
-                            },
-                          ])
-                        }
-                      >
-                        {el.product}
-                      </div>
-                    );
-                  }
-                })
-              : null}
+            <div className="list-prods">
+              {category
+                ? data.map((el, i) => {
+                    if (el.category === category) {
+                      return (
+                        <div
+                          onClick={() =>
+                            setTotalProducts([
+                              ...totalProducts,
+                              {
+                                id: el.id,
+                                product: el.product,
+                                quantity: '',
+                                maxQuantity: el.quantity,
+                                cost: el.cost,
+                              },
+                            ])
+                          }
+                        >
+                          <li className="list-product">{el.product}</li>
+                        </div>
+                      );
+                    }
+                  })
+                : null}
+            </div>
           </div>
 
           <div>
-            <h3>Pedido</h3>
-            <h3>ID - Producto - Cantidad</h3>
-            <div>
+            <h4>Pedido</h4>
+            <h5>Producto - Cantidad</h5>
+            <div className="order-final">
               {totalProducts.map((el, i) => {
                 return (
-                  <p>
+                  <div className="order-final-prods">
                     <span>{el.product}</span>
-                    <input
-                      type="number"
-                      placeholder="Cantidad"
-                      onChange={(e) => (el.quantity = e.target.value)}
-                      min="0"
-                      max={el.maxQuantity}
-                    />
-                    <button
-                      onClick={() =>
-                        setTotalProducts(
-                          totalProducts.filter((element) => element !== el)
-                        )
-                      }
-                    >
-                      X
-                    </button>
-                  </p>
+                    <div>
+                      <input
+                        className="quantity"
+                        required
+                        type="number"
+                        onChange={(e) => (el.quantity = e.target.value)}
+                        min="0"
+                        max={el.maxQuantity}
+                      />
+                      <button
+                        className="close-button"
+                        onClick={() =>
+                          setTotalProducts(
+                            totalProducts.filter((element) => element !== el)
+                          )
+                        }
+                      >
+                        X
+                      </button>
+                    </div>
+                  </div>
                 );
               })}
             </div>
-            <button type="submit">Guardar Pedido</button>
+            <button className="action-button" type="submit">
+              Guardar Pedido
+            </button>
           </div>
         </div>
       </form>
-      <button onClick={onClose}>Cancelar</button>
-    </>
+      <button className="action-button" onClick={onClose}>
+        Cancelar
+      </button>
+    </div>
   );
 }
